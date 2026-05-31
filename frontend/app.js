@@ -699,8 +699,16 @@
     const user = getUser();
     if (!user || typeof io === "undefined") return;
 
-    const socket = io();
-    socket.emit("join", user.id);
+    const socket = io("https://skillswap-9vg6.onrender.com", {
+  transports: ["websocket", "polling"]
+});
+    const userId = user?.id || user?._id;
+
+console.log("Socket joining as:", userId);
+
+if (userId) {
+  socket.emit("join", userId);
+}
     socket.on("new_notification", (data) => {
       notify(data.message || data.title || "New notification", "success");
     });

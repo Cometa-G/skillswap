@@ -371,7 +371,9 @@
   </script>
   <script>
   if (typeof io !== "undefined") {
-    const socket = io("http://localhost:3000");
+    const socket = io(window.location.origin, {
+  transports: ["websocket"]
+});
 
     const userId = "USER_ID_HERE";
     socket.emit("join", userId);

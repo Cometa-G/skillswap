@@ -226,7 +226,17 @@ function createDemoBooking(req, res) {
     createdAt: booking.createdAt
   });
 
-  io.emit("new_booking", booking);
+  io.to(booking.tutor).emit("new_notification", {
+  title: "New booking request",
+  message: `A student requested a session for ${booking.skill}.`,
+  booking
+});
+
+io.to(booking.student).emit("new_notification", {
+  title: "Booking request sent",
+  message: `Your session request with ${booking.tutorName} was sent.`,
+  booking
+});
 
   const xmlDir = path.join(__dirname, "xml/bookings");
   if (!fs.existsSync(xmlDir)) fs.mkdirSync(xmlDir, { recursive: true });
@@ -295,10 +305,16 @@ app.patch("/api/bookings/:id/status", demoAuth, (req, res, next) => {
     createdAt: new Date().toISOString()
   });
 
-  io.emit("booking_status_updated", {
-    id: booking.id,
-    status: booking.status
-  });
+  io.to(booking.student).emit("new_notification", {
+  title: booking.status === "accepted" ? "Booking approved" : "Booking rejected",
+  message: `Your ${booking.skill} booking was ${booking.status}.`,
+  booking
+});
+
+io.to(booking.tutor).emit("booking_status_updated", {
+  id: booking.id,
+  status: booking.status
+});
 
   res.json(booking);
 });
