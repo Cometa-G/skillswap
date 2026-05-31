@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../booking-summary.xsl"?>
+<booking>
+  <id>6a1b82b97e761e60d11de6f7</id>
+  <student>6a1b812c7e761e60d11de6f4</student>
+  <tutor>6a1b81557e761e60d11de6f5</tutor>
+  <skill>HCI tutoring session</skill>
+  <details></details>
+  <encryptedDetails></encryptedDetails>
+  <status>pending</status>
+  <createdAt>Sun May 31 2026 08:37:13 GMT+0800 (Singapore Standard Time)</createdAt>
+</booking>

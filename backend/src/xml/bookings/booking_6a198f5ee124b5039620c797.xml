@@ -1,0 +1,8 @@
+<booking>
+  <id>6a198f5ee124b5039620c797</id>
+  <student>6a1938a0a944aa993c9a639d</student>
+  <tutor>6a1967592dfd8f581d3caee5</tutor>
+  <skill>Node.js Basics</skill>
+  <status>pending</status>
+  <createdAt>Fri May 29 2026 21:06:38 GMT+0800 (Singapore Standard Time)</createdAt>
+</booking>

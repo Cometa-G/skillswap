@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../booking-summary.xsl"?>
+<booking>
+  <id>6a1b84a5cd3da9853e14f1d8</id>
+  <student>6a1b84a4cd3da9853e14f1d7</student>
+  <tutor>6a1b81557e761e60d11de6f5</tutor>
+  <skill>HCI usability testing review</skill>
+  <details>Need help preparing a usability testing plan and Nielsen heuristic evaluation for the final project.</details>
+  <encryptedDetails>DKWcq5tV0dorz2Jk.c5pSuXd7Gt49U0831TnbHQ==.Vtm60FntUcICSzLdQWsmDSG8fdw92kBst3sVr6LdR5dVItv5mQ6YLuTrMh+mRCOXaZyr5O3ubwt1XCo4fhsUZIxQOo/aEndjpbr1HWPavOf4h3wPNnCyo9ptG9fhTEA7OgKjCA==</encryptedDetails>
+  <status>pending</status>
+  <createdAt>Sun May 31 2026 08:45:25 GMT+0800 (Singapore Standard Time)</createdAt>
+</booking>

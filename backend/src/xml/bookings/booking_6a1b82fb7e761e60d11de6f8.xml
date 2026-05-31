@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../booking-summary.xsl"?>
+<booking>
+  <id>6a1b82fb7e761e60d11de6f8</id>
+  <student>6a1b812c7e761e60d11de6f4</student>
+  <tutor>6a1b81557e761e60d11de6f5</tutor>
+  <skill>adsfdsagfgageffas</skill>
+  <details>adsfdsagfgageffas</details>
+  <encryptedDetails>e4M04KVlTyWjvoJx.J9qN843PUYuItvZJuFeU7w==.vmKgaBm+xB3P9kN7fXP+HTY=</encryptedDetails>
+  <status>pending</status>
+  <createdAt>Sun May 31 2026 08:38:19 GMT+0800 (Singapore Standard Time)</createdAt>
+</booking>

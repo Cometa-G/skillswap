@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillSwap — Full Figma Frame Replica</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --line: #334155;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #22c55e;
+      --accent-2: #38bdf8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617 60%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      border-right: 1px solid var(--line);
+      background: rgba(2, 6, 23, 0.88);
+      backdrop-filter: blur(6px);
+      padding: 18px;
+      overflow: auto;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .title { margin: 0; font-size: 1.05rem; font-weight: 700; }
+    .subtitle { margin: 6px 0 14px; color: var(--muted); font-size: .86rem; }
+
+    .section-title {
+      margin: 14px 0 8px;
+      font-size: .75rem;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .role-toggle { display: flex; gap: 8px; }
+
+    .btn,
+    .nav button,
+    .role-toggle button,
+    .action button {
+      border: 1px solid var(--line);
+      background: #0b1220;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 11px;
+      cursor: pointer;
+      font-size: .86rem;
+    }
+
+    .btn:hover,
+    .nav button:hover,
+    .role-toggle button:hover,
+    .action button:hover { border-color: var(--accent-2); }
+
+    .role-toggle button.active { background: #134e4a; border-color: #0d9488; }
+
+    .nav { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .nav button { width: 100%; text-align: left; }
+    .nav button.active { background: #14532d; border-color: var(--accent); }
+
+    .main {
+      padding: 16px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .topbar,
+    .action,
+    .meta {
+      border: 1px solid var(--line);
+      background: rgba(17, 24, 39, 0.85);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .frame-title { margin: 0; font-size: .98rem; }
+    .muted { color: var(--muted); font-size: .86rem; }
+
+    .viewer {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #020617;
+      overflow: auto;
+      padding: 10px;
+      display: grid;
+      place-items: start center;
+    }
+
+    .stage {
+      width: min(100%, 1414px);
+      transform-origin: top center;
+      transition: transform .22s ease;
+    }
+
+    .stage img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, .5);
+    }
+
+    .meta { align-items: flex-start; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: .75rem;
+      color: #cbd5e1;
+      background: #0b1220;
+    }
+
+    @media (max-width: 1100px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; max-height: 45vh; }
+      .main { grid-template-rows: repeat(4, auto); }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h1 class="title">SkillSwap Figma Replica</h1>
+      <p class="subtitle">All exported Figma frames connected into a single interactive frontend flow.</p>
+
+      <div class="role-toggle" id="roleToggle"></div>
+
+      <div class="section-title">Public</div>
+      <ul class="nav" id="nav-public"></ul>
+
+      <div class="section-title">Student</div>
+      <ul class="nav" id="nav-student"></ul>
+
+      <div class="section-title">Tutor</div>
+      <ul class="nav" id="nav-tutor"></ul>
+    </aside>
+
+    <main class="main">
+      <section class="topbar">
+        <div>
+          <h2 class="frame-title" id="frameTitle"></h2>
+          <div class="muted" id="framePath"></div>
+        </div>
+        <div>
+          <button class="btn" id="prevBtn">← Previous</button>
+          <button class="btn" id="nextBtn">Next →</button>
+          <button class="btn" id="fitBtn">Fit</button>
+          <button class="btn" id="zoomInBtn">Zoom +</button>
+          <button class="btn" id="zoomOutBtn">Zoom −</button>
+        </div>
+      </section>
+
+      <section class="action" id="actions"></section>
+
+      <section class="viewer" id="viewer">
+        <div class="stage" id="stage">
+          <img id="frameImage" alt="Figma frame" />
+        </div>
+      </section>
+
+      <section class="meta">
+        <div>
+          <div class="muted">Frame details</div>
+          <div class="chips" id="chips"></div>
+        </div>
+        <div class="muted">Transitions and navigation are wired to simulate full app flow.</div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const FRAMES = [
+      { id: 'design-file', name: 'Design File', group: 'public', file: 'assets/figma/design-file-base.png', size: '1408×4460', links: ['about-us', 'contact-us', 'login-page-a'] },
+      { id: 'about-us', name: 'About us', group: 'public', file: 'assets/figma/about-us-base.png', size: '1408×2958', links: ['design-file', 'contact-us'] },
+      { id: 'contact-us', name: 'Contact us', group: 'public', file: 'assets/figma/contact-us-base.png', size: '1414×1441', links: ['design-file', 'login-page-a'] },
+      { id: 'login-page-a', name: 'Log-in Page', group: 'public', file: 'assets/figma/login-page-a-base.png', size: '1414×1312', links: ['login-page-2', 'signup-page-b', 'dashboard-student'] },
+      { id: 'login-page-b', name: 'Log-in Page (Alt)', group: 'public', file: 'assets/figma/login-page-b-base.png', size: '1414×1312', links: ['login-page-3', 'dashboard-tutor'] },
+      { id: 'login-page-2', name: 'Log-in Page 2', group: 'public', file: 'assets/figma/login-page-2-base.png', size: '1414×1511', links: ['login-page-3', 'dashboard-student'] },
+      { id: 'login-page-3', name: 'Log-in Page 3', group: 'public', file: 'assets/figma/login-page-3-base.png', size: '1414×1511', links: ['dashboard-student', 'dashboard-tutor'] },
+      { id: 'signup-page-a', name: 'Sign-up Page A', group: 'public', file: 'assets/figma/signup-page-a-base.png', size: '1414×1317', links: ['login-page-a', 'dashboard-tutor'] },
+      { id: 'signup-page-b', name: 'Sign-up Page B', group: 'public', file: 'assets/figma/signup-page-b-base.png', size: '1414×1317', links: ['login-page-a', 'dashboard-student'] },
+
+      { id: 'dashboard-student', name: 'Dashboard', group: 'student', file: 'assets/figma/dashboard-student-base.png', size: '1414×914', links: ['find-tutor', 'my-sessions', 'messages-student', 'notifications-student'] },
+      { id: 'find-tutor', name: 'Find Tutor', group: 'student', file: 'assets/figma/find-tutor-base.png', size: '1414×914', links: ['booking-confirmation', 'messages-student'] },
+      { id: 'my-sessions', name: 'My Sessions', group: 'student', file: 'assets/figma/my-sessions-base.png', size: '1414×914', links: ['booking-confirmation', 'notifications-student'] },
+      { id: 'booking-confirmation', name: 'Booking Confirmation', group: 'student', file: 'assets/figma/booking-confirmation-base.png', size: '1414×914', links: ['notifications-student', 'messages-student'] },
+      { id: 'messages-student', name: 'Messages', group: 'student', file: 'assets/figma/messages-student-base.png', size: '1414×914', links: ['notifications-student', 'dashboard-student'] },
+      { id: 'notifications-student', name: 'Notifications (Student)', group: 'student', file: 'assets/figma/notifications-student-base.png', size: '1414×914', links: ['booking-list', 'dashboard-student'] },
+
+      { id: 'dashboard-tutor', name: 'Tutor Dashboard', group: 'tutor', file: 'assets/figma/dashboard-tutor-base.png', size: '1414×914', links: ['messages-tutor', 'booking-request', 'notifications-tutor'] },
+      { id: 'messages-tutor', name: 'Tutor Message', group: 'tutor', file: 'assets/figma/messages-tutor-base.png', size: '1414×914', links: ['booking-request', 'notifications-tutor'] },
+      { id: 'notifications-tutor', name: 'Notifications (Tutor)', group: 'tutor', file: 'assets/figma/notifications-tutor-base.png', size: '1414×914', links: ['booking-request', 'dashboard-tutor'] },
+      { id: 'booking-request', name: 'Booking Request', group: 'tutor', file: 'assets/figma/booking-request-base.png', size: '1414×1517', links: ['booking-request-confirmation', 'booking-list'] },
+      { id: 'booking-request-confirmation', name: 'Booking request Confirmation', group: 'tutor', file: 'assets/figma/booking-request-confirmation-base.png', size: '1414×1665', links: ['booking-list', 'dashboard-tutor'] },
+      { id: 'booking-list', name: 'Booking List', group: 'tutor', file: 'assets/figma/booking-list-base.png', size: '1414×1414', links: ['dashboard-tutor', 'dashboard-student'] }
+    ];
+
+    const byId = Object.fromEntries(FRAMES.map(f => [f.id, f]));
+    let current = 'design-file';
+    let role = 'student';
+    let zoom = 1;
+
+    const navEls = {
+      public: document.getElementById('nav-public'),
+      student: document.getElementById('nav-student'),
+      tutor: document.getElementById('nav-tutor')
+    };
+
+    const frameTitle = document.getElementById('frameTitle');
+    const framePath = document.getElementById('framePath');
+    const frameImage = document.getElementById('frameImage');
+    const stage = document.getElementById('stage');
+    const actions = document.getElementById('actions');
+    const chips = document.getElementById('chips');
+    const roleToggle = document.getElementById('roleToggle');
+
+    function makeRoleButton(id, label) {
+      const btn = document.createElement('button');
+      btn.textContent = label;
+      btn.onclick = () => {
+        role = id;
+        document.querySelectorAll('#roleToggle button').forEach(b => b.classList.toggle('active', b === btn));
+        const first = FRAMES.find(f => f.group === id) || FRAMES[0];
+        go(first.id);
+      };
+      return btn;
+    }
+
+    function renderRoleToggle() {
+      roleToggle.innerHTML = '';
+      const studentBtn = makeRoleButton('student', 'Student Flow');
+      const tutorBtn = makeRoleButton('tutor', 'Tutor Flow');
+      studentBtn.classList.add('active');
+      roleToggle.append(studentBtn, tutorBtn);
+    }
+
+    function makeNavButton(frame) {
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.textContent = frame.name;
+      btn.onclick = () => go(frame.id);
+      btn.dataset.id = frame.id;
+      li.appendChild(btn);
+      return li;
+    }
+
+    function renderNav() {
+      Object.values(navEls).forEach(el => (el.innerHTML = ''));
+      FRAMES.forEach(f => navEls[f.group].appendChild(makeNavButton(f)));
+    }
+
+    function setActiveNav() {
+      document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('active', b.dataset.id === current));
+    }
+
+    function renderActions(frame) {
+      actions.innerHTML = '<span class="muted">Clickable flow actions:</span>';
+      frame.links.forEach(id => {
+        const to = byId[id];
+        if (!to) return;
+        const btn = document.createElement('button');
+        btn.textContent = to.name;
+        btn.onclick = () => go(id);
+        actions.appendChild(btn);
+      });
+    }
+
+    function renderMeta(frame) {
+      chips.innerHTML = '';
+      [['Frame', frame.name], ['Group', frame.group], ['Asset', frame.file.split('/').pop()], ['Size', frame.size], ['Node Count', `${frame.links.length} linked actions`]]
+        .forEach(([k, v]) => {
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.textContent = `${k}: ${v}`;
+          chips.appendChild(chip);
+        });
+    }
+
+    function applyZoom() {
+      stage.style.transform = `scale(${zoom})`;
+    }
+
+    function fit() {
+      zoom = 1;
+      applyZoom();
+    }
+
+    function go(id) {
+      const frame = byId[id];
+      if (!frame) return;
+      current = id;
+      frameTitle.textContent = frame.name;
+      framePath.textContent = `${frame.group.toUpperCase()} • ${frame.file}`;
+      frameImage.src = frame.file;
+      frameImage.alt = frame.name;
+      renderActions(frame);
+      renderMeta(frame);
+      setActiveNav();
+    }
+
+    function orderedFlow() {
+      const groupOrder = ['public', role];
+      return FRAMES.filter(f => groupOrder.includes(f.group));
+    }
+
+    document.getElementById('prevBtn').onclick = () => {
+      const flow = orderedFlow();
+      let idx = flow.findIndex(f => f.id === current);
+      if (idx < 0) idx = 0;
+      idx = (idx - 1 + flow.length) % flow.length;
+      go(flow[idx].id);
+    };
+
+    document.getElementById('nextBtn').onclick = () => {
+      const flow = orderedFlow();
+      let idx = flow.findIndex(f => f.id === current);
+      if (idx < 0) idx = 0;
+      idx = (idx + 1) % flow.length;
+      go(flow[idx].id);
+    };
+
+    document.getElementById('fitBtn').onclick = fit;
+    document.getElementById('zoomInBtn').onclick = () => { zoom = Math.min(2, +(zoom + 0.1).toFixed(2)); applyZoom(); };
+    document.getElementById('zoomOutBtn').onclick = () => { zoom = Math.max(0.4, +(zoom - 0.1).toFixed(2)); applyZoom(); };
+
+    renderRoleToggle();
+    renderNav();
+    go('design-file');
+  </script>
+</body>
+</html>

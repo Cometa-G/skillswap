@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Session — SkillSwap</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+<div class="dashboard-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-inner">
+        <div class="sidebar-logo-icon">🎓</div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">Skill<span>Swap</span></span>
+          <span class="sidebar-logo-tagline">Learn, Teach, Grow Together.</span>
+        </div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Dashboard
+      </a>
+      <a href="find-tutor.html" class="sidebar-nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Find Tutors
+      </a>
+      <a href="my-sessions.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        My Sessions
+      </a>
+      <a href="messages.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Messages
+      </a>
+      <a href="notifications.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notifications
+      </a>
+      <div class="sidebar-nav-divider"></div>
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        My Reviews
+      </a>
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Favorites
+      </a>
+      <div class="sidebar-nav-divider"></div>
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Profile
+      </a>
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a>
+      <a href="login.html" class="sidebar-nav-item" style="color:#ef4444;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log-out
+      </a>
+    </nav>
+    <div class="sidebar-help">
+      <div class="sidebar-help-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+      </div>
+      <h5>Need Help?</h5>
+      <p>Visit our Help Center or contact support</p>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="icon-btn" id="sidebarToggle" style="display:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="dashboard-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search tutors, subjects, or skills..." />
+      </div>
+      <div class="dashboard-header-actions">
+        <a href="messages.html" class="icon-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </a>
+        <a href="notifications.html" class="icon-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="badge-dot"></span>
+        </a>
+        <div class="dashboard-user">
+          <div class="avatar-placeholder avatar-md green" style="font-size:14px;">DJ</div>
+          <div class="dashboard-user-info">
+            <span class="dashboard-user-name">Deniel Javier</span>
+            <span class="dashboard-user-role">Student</span>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+    </header>
+
+    <div class="dashboard-content">
+      <h1 class="page-title">Book a Session</h1>
+      <p class="page-subtitle">Schedule your learning session with your chosen tutor.</p>
+
+      <!-- Tutor Info Banner -->
+      <div style="
+        background:var(--color-bg); border:1px solid var(--color-border);
+        border-radius:12px; padding:1.25rem; margin-bottom:1.5rem;
+        display:flex; align-items:center; gap:1rem; box-shadow:var(--shadow-sm);
+      ">
+        <div class="avatar-placeholder avatar-xl green" style="font-size:20px; flex-shrink:0;">HB</div>
+        <div style="flex:1;">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:4px;">
+            <span style="font-size:1rem; font-weight:700; color:var(--color-text);">Hyacinth Bautista</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#22c55e"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+          </div>
+          <div style="font-size:0.75rem; color:var(--color-primary); font-weight:500; margin-bottom:6px;">
+            ● Online · Responds within 5 mins
+          </div>
+          <div style="display:flex; align-items:center; gap:1rem; font-size:0.75rem; color:var(--color-text-muted);">
+            <span>⭐ 4.6 (135 reviews)</span>
+            <span>|</span>
+            <span>150 sessions</span>
+            <span class="badge badge-purple">HCI Tutor</span>
+          </div>
+        </div>
+        <div style="text-align:right; flex-shrink:0;">
+          <div style="font-size:1.125rem; font-weight:700; color:var(--color-text);">₱350.00</div>
+          <div style="font-size:0.75rem; color:var(--color-text-muted);">per session</div>
+        </div>
+      </div>
+
+      <!-- Booking Layout -->
+      <div class="booking-layout">
+
+        <!-- Left: Booking Form -->
+        <div>
+
+          <!-- Step 1: Session Type -->
+          <div class="booking-section">
+            <div class="booking-section-title">
+              <span>1</span>
+              Select Session Type
+            </div>
+            <div class="session-type-grid">
+              <div class="session-type-card selected" onclick="selectType(this)">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
+                  <h4>1-on-1 Session</h4>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#22c55e"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+                </div>
+                <p>60 mins · ₱350.00</p>
+                <p style="margin-top:4px;">Personalized tutoring</p>
+              </div>
+              <div class="session-type-card" onclick="selectType(this)">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
+                  <h4>Group Session</h4>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <p>60 mins · ₱250.00</p>
+                <p style="margin-top:4px;">Learn with small group</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Date & Time -->
+          <div class="booking-section">
+            <div class="booking-section-title">
+              <span>2</span>
+              Choose Date &amp; Time
+            </div>
+
+            <!-- Calendar -->
+            <div class="calendar">
+              <div class="calendar-header">
+                <button class="calendar-nav-btn" onclick="prevMonth()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div class="calendar-month-year">
+                  <select class="calendar-select" id="calMonth">
+                    <option value="0">January</option><option value="1">February</option>
+                    <option value="2">March</option><option value="3">April</option>
+                    <option value="4" selected>May</option><option value="5">June</option>
+                    <option value="6">July</option><option value="7">August</option>
+                    <option value="8">September</option><option value="9">October</option>
+                    <option value="10">November</option><option value="11">December</option>
+                  </select>
+                  <select class="calendar-select" id="calYear">
+                    <option value="2026" selected>2026</option>
+                    <option value="2027">2027</option>
+                  </select>
+                </div>
+                <button class="calendar-nav-btn" onclick="nextMonth()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+
+              <!-- Calendar Grid -->
+              <div class="calendar-grid" id="calGrid">
+                <!-- Day headers -->
+                <div class="calendar-day-header">Su</div>
+                <div class="calendar-day-header">Mo</div>
+                <div class="calendar-day-header">Tu</div>
+                <div class="calendar-day-header">We</div>
+                <div class="calendar-day-header">Th</div>
+                <div class="calendar-day-header">Fr</div>
+                <div class="calendar-day-header">Sa</div>
+              </div>
+            </div>
+
+            <!-- Available Times -->
+            <div style="margin-top:1.5rem;">
+              <p style="font-size:0.875rem; font-weight:600; color:var(--color-text); margin-bottom:0.75rem;" id="availableTimesLabel">
+                Available Times for Tuesday, May 30, 2026
+              </p>
+              <div class="time-slots">
+                <button class="time-slot" onclick="selectTime(this)">9:00 AM</button>
+                <button class="time-slot" onclick="selectTime(this)">10:30 AM</button>
+                <button class="time-slot" onclick="selectTime(this)">12:00 PM</button>
+                <button class="time-slot" onclick="selectTime(this)">1:00 PM</button>
+                <button class="time-slot" onclick="selectTime(this)">2:30 PM</button>
+                <button class="time-slot selected" onclick="selectTime(this)">4:00 PM</button>
+                <button class="time-slot" onclick="selectTime(this)">5:00 PM</button>
+                <button class="time-slot" onclick="selectTime(this)">7:00 PM</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Add Details -->
+          <div class="booking-section">
+            <div class="booking-section-title">
+              <span>3</span>
+              Add Details (Optional)
+            </div>
+            <div class="form-group">
+              <label class="form-label">What would you like to focus on?</label>
+              <textarea
+                class="form-input form-textarea"
+                placeholder="Example: UI/UX designing for exam preparation"
+                maxlength="300"
+                id="sessionDetails"
+                oninput="updateCharCount(this)"
+                rows="4"
+              ></textarea>
+              <div style="text-align:right; font-size:0.75rem; color:var(--color-text-muted);">
+                <span id="charCount">0</span>/300
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Booking Summary -->
+        <div>
+          <div class="booking-summary">
+            <h3>Booking Summary</h3>
+
+            <!-- Tutor -->
+            <div class="booking-summary-tutor">
+              <div class="avatar-placeholder avatar-md green" style="font-size:14px;">HB</div>
+              <div>
+                <div style="font-size:0.875rem; font-weight:600; color:var(--color-text);">Hyacinth Bautista</div>
+                <span class="badge badge-purple" style="margin-top:2px; font-size:10px;">HCI Tutor</span>
+              </div>
+            </div>
+
+            <!-- Session Details -->
+            <div style="margin-bottom:1rem;">
+              <p style="font-size:0.75rem; font-weight:600; color:var(--color-text); margin-bottom:0.5rem;">Session Details</p>
+              <div class="booking-detail-row">
+                <span class="label">Session type</span>
+                <span class="value" id="summaryType">1-on-1 session</span>
+              </div>
+              <div class="booking-detail-row">
+                <span class="label">Duration</span>
+                <span class="value">60 mins</span>
+              </div>
+              <div class="booking-detail-row">
+                <span class="label">Date</span>
+                <span class="value" id="summaryDate">May 30, 2026</span>
+              </div>
+              <div class="booking-detail-row">
+                <span class="label">Time</span>
+                <span class="value" id="summaryTime">4:00 PM</span>
+              </div>
+              <div class="booking-detail-row">
+                <span class="label">Location</span>
+                <span class="value">Online</span>
+              </div>
+            </div>
+
+            <!-- Price Breakdown -->
+            <div style="border-top:1px solid var(--color-border); padding-top:1rem; margin-bottom:1rem;">
+              <p style="font-size:0.75rem; font-weight:600; color:var(--color-text); margin-bottom:0.5rem;">Price Breakdown</p>
+              <div class="booking-price-row">
+                <span>Session Fee</span><span>₱350.00</span>
+              </div>
+              <div class="booking-price-row">
+                <span>Platform Fee</span><span>₱10.00</span>
+              </div>
+            </div>
+
+            <div class="booking-total-row">
+              <span>Total</span>
+              <span style="color:var(--color-primary);">₱360.00</span>
+            </div>
+
+            <!-- Payment Method -->
+            <p style="font-size:0.75rem; font-weight:600; color:var(--color-text); margin-bottom:0.5rem;">Payment Method</p>
+            <div class="payment-methods">
+              <button class="payment-method selected" onclick="selectPayment(this)">
+                💚 GCash
+              </button>
+              <button class="payment-method" onclick="selectPayment(this)">
+                💳 Card
+              </button>
+              <button class="payment-method" onclick="selectPayment(this)">
+                🏦 Bank
+              </button>
+            </div>
+
+            <!-- Confirm Button -->
+            <button class="btn btn-primary" style="width:100%; padding:12px; margin-top:0.5rem;" onclick="confirmBooking()">
+              Confirm Booking
+            </button>
+
+            <!-- Disclaimer -->
+            <p style="font-size:0.7rem; color:var(--color-text-muted); text-align:center; margin-top:0.75rem; display:flex; align-items:center; justify-content:center; gap:4px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              You'll receive confirmation instantly after payment
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Booking Confirmed Modal -->
+<div class="booking-confirmed-overlay" id="confirmedModal" style="display:none;">
+  <div class="booking-confirmed-card">
+    <!-- Success Icon -->
+    <div class="booking-confirmed-icon">
+      <div class="booking-confirmed-icon-inner">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+      </div>
+    </div>
+
+    <h2 style="font-size:1.5rem; font-weight:700; color:var(--color-text); margin-bottom:0.5rem;">Booking Confirmed!</h2>
+    <p style="color:var(--color-text-muted); margin-bottom:1.5rem;">Your session has been successfully scheduled.</p>
+
+    <!-- Session Info Card -->
+    <div style="
+      background:var(--color-bg-grey); border-radius:12px; padding:1.25rem;
+      margin-bottom:1.5rem; text-align:left;
+    ">
+      <!-- Tutor -->
+      <div style="display:flex; align-items:center; gap:0.75rem; padding-bottom:1rem; border-bottom:1px solid var(--color-border); margin-bottom:1rem;">
+        <div class="avatar-placeholder avatar-md green" style="font-size:14px;">HB</div>
+        <div>
+          <div style="font-size:0.875rem; font-weight:600; color:var(--color-text);">Hyacinth Bautista</div>
+          <span class="badge badge-purple" style="font-size:10px;">Programming Tutor</span>
+        </div>
+      </div>
+
+      <!-- Details Grid -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+        <div>
+          <p style="font-size:0.7rem; color:var(--color-text-muted); margin-bottom:2px;">Session Type</p>
+          <p style="font-size:0.875rem; font-weight:600; color:var(--color-text);">1-on-1 Session</p>
+        </div>
+        <div>
+          <p style="font-size:0.7rem; color:var(--color-text-muted); margin-bottom:2px;">Duration</p>
+          <p style="font-size:0.875rem; font-weight:600; color:var(--color-text);">60 mins</p>
+        </div>
+        <div>
+          <p style="font-size:0.7rem; color:var(--color-text-muted); margin-bottom:2px;">Date</p>
+          <p style="font-size:0.875rem; font-weight:600; color:var(--color-text);">May 30, 2026</p>
+        </div>
+        <div>
+          <p style="font-size:0.7rem; color:var(--color-text-muted); margin-bottom:2px;">Time</p>
+          <p style="font-size:0.875rem; font-weight:600; color:var(--color-text);">4:00 PM</p>
+        </div>
+        <div>
+          <p style="font-size:0.7rem; color:var(--color-text-muted); margin-bottom:2px;">Meeting Type</p>
+          <p style="font-size:0.875rem; font-weight:600; color:var(--color-text);">Online</p>
+        </div>
+        <div>
+          <p style="font-size:0.7rem; color:var(--color-text-muted); margin-bottom:2px;">Amount Paid</p>
+          <p id="confirmedAmountPaid" style="font-size:0.875rem; font-weight:700; color:var(--color-primary);">₱360.00</p>
+        </div>
+      </div>
+
+      <!-- Payment Status -->
+      <div style="
+        display:flex; align-items:center; gap:0.5rem;
+        margin-top:1rem; padding-top:1rem; border-top:1px solid var(--color-border);
+      ">
+        <div style="
+          width:28px; height:28px; background:var(--color-primary-light);
+          border-radius:50%; display:flex; align-items:center; justify-content:center;
+        ">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <div>
+          <p style="font-size:0.75rem; font-weight:600; color:var(--color-primary);">Payment Successful</p>
+          <p id="confirmedPaymentLine" style="font-size:0.7rem; color:var(--color-text-muted);">GCash · ₱360.00</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <a href="my-sessions.html" class="btn btn-primary" style="width:100%; margin-bottom:0.75rem;">
+      Go to My Sessions
+    </a>
+    <div style="display:flex; gap:0.75rem;">
+      <a href="messages.html" class="btn btn-outline" style="flex:1;">Message Tutor</a>
+      <button onclick="closeModal()" class="btn btn-outline" style="flex:1;">Close</button>
+    </div>
+
+    <p style="font-size:0.7rem; color:var(--color-text-muted); margin-top:1rem;">
+      A confirmation email has been sent to your inbox
+    </p>
+  </div>
+</div>
+
+<script>
+  // Sidebar toggle
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  if (window.innerWidth <= 768) sidebarToggle.style.display = 'flex';
+  sidebarToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  window.addEventListener('resize', () => {
+    sidebarToggle.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+    if (window.innerWidth > 768) sidebar.classList.remove('open');
+  });
+
+  // Session type selection
+  function selectType(card) {
+    document.querySelectorAll('.session-type-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    const type = card.querySelector('h4').textContent;
+    document.getElementById('summaryType').textContent = type;
+    // Update checkmark
+    document.querySelectorAll('.session-type-card svg').forEach(svg => {
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', '#94a3b8');
+    });
+    card.querySelector('svg').setAttribute('fill', '#22c55e');
+    card.querySelector('svg').removeAttribute('stroke');
+  }
+
+  // Time slot selection
+  function selectTime(btn) {
+    document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById('summaryTime').textContent = btn.textContent;
+  }
+
+  // Payment method selection
+  function selectPayment(btn) {
+    document.querySelectorAll('.payment-method').forEach(p => p.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  // Character count
+  function updateCharCount(textarea) {
+    document.getElementById('charCount').textContent = textarea.value.length;
+  }
+
+  // Calendar rendering
+  let currentMonth = 4; // May (0-indexed)
+  let currentYear = 2026;
+  let selectedDay = 30;
+
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dayNames = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+  function renderCalendar() {
+    const grid = document.getElementById('calGrid');
+    // Clear existing day buttons (keep headers)
+    const headers = grid.querySelectorAll('.calendar-day-header');
+    grid.innerHTML = '';
+    headers.forEach(h => grid.appendChild(h.cloneNode(true)));
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const today = new Date();
+
+    // Empty cells before first day
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement('button');
+      empty.className = 'calendar-day empty';
+      empty.disabled = true;
+      grid.appendChild(empty);
+    }
+
+    // Day buttons
+    for (let d = 1; d <= daysInMonth; d++) {
+      const btn = document.createElement('button');
+      btn.className = 'calendar-day';
+      btn.textContent = d;
+
+      const date = new Date(currentYear, currentMonth, d);
+      if (date < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+        btn.classList.add('disabled');
+        btn.disabled = true;
+      } else if (d === selectedDay && currentMonth === 4 && currentYear === 2026) {
+        btn.classList.add('active');
+      }
+
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.calendar-day').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        selectedDay = d;
+        const dayName = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][date.getDay()];
+        document.getElementById('availableTimesLabel').textContent =
+          `Available Times for ${dayName}, ${monthNames[currentMonth]} ${d}, ${currentYear}`;
+        document.getElementById('summaryDate').textContent =
+          `${monthNames[currentMonth]} ${d}, ${currentYear}`;
+      });
+
+      grid.appendChild(btn);
+    }
+
+    document.getElementById('calMonth').value = currentMonth;
+    document.getElementById('calYear').value = currentYear;
+  }
+
+  function prevMonth() {
+    if (currentMonth === 0) { currentMonth = 11; currentYear--; }
+    else currentMonth--;
+    renderCalendar();
+  }
+
+  function nextMonth() {
+    if (currentMonth === 11) { currentMonth = 0; currentYear++; }
+    else currentMonth++;
+    renderCalendar();
+  }
+
+  document.getElementById('calMonth').addEventListener('change', function() {
+    currentMonth = parseInt(this.value);
+    renderCalendar();
+  });
+
+  document.getElementById('calYear').addEventListener('change', function() {
+    currentYear = parseInt(this.value);
+    renderCalendar();
+  });
+
+  // Confirm booking
+  function confirmBooking() {
+    document.getElementById('confirmedModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('confirmedModal').style.display = 'none';
+  }
+
+  // Initialize calendar
+  renderCalendar();
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+<script src="tutor-mode.js"></script>
+</body>
+</html>

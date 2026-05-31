@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../booking-summary.xsl"?>
+<booking>
+  <id>6a1ba057397f02dbb48cb385</id>
+  <student>6a1b812c7e761e60d11de6f4</student>
+  <tutor>6a1b9624368a97a5244ef04a</tutor>
+  <tutorName>Cometa Gino</tutorName>
+  <skill>Sample Title</skill>
+  <details>Sample Title</details>
+  <encryptedDetails>eVD61HltYCBfw9ji.WNGk1beIgz6SWvUuhWIR5A==.B3lxlFuwoJkOJDTF</encryptedDetails>
+  <sessionType>1-on-1 session</sessionType>
+  <sessionDate>May 31, 2026</sessionDate>
+  <sessionTime>5:00 PM</sessionTime>
+  <meetingType>Online</meetingType>
+  <paymentMethod>💚 GCash</paymentMethod>
+  <amountPaid>360</amountPaid>
+  <status>pending</status>
+  <createdAt>Sun May 31 2026 10:43:35 GMT+0800 (Singapore Standard Time)</createdAt>
+</booking>

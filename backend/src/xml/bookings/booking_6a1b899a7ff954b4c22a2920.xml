@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../booking-summary.xsl"?>
+<booking>
+  <id>6a1b899a7ff954b4c22a2920</id>
+  <student>6a1b899a7ff954b4c22a291f</student>
+  <tutor>6a1b81557e761e60d11de6f5</tutor>
+  <tutorName>Gino Cometa</tutorName>
+  <skill>Selected tutor carryover test</skill>
+  <details>Testing selected tutor display</details>
+  <encryptedDetails>51akBFCG52jQxG2H.RnZFsllG16oheXgR2qLkfQ==./0gRRd46lutMsGHoMVZVVDThrfPHhlmcAtwNOpWj</encryptedDetails>
+  <sessionType>1-on-1 Session</sessionType>
+  <sessionDate>May 31, 2026</sessionDate>
+  <sessionTime>5:00 PM</sessionTime>
+  <meetingType>Online</meetingType>
+  <paymentMethod>GCash</paymentMethod>
+  <amountPaid>360</amountPaid>
+  <status>pending</status>
+  <createdAt>Sun May 31 2026 09:06:34 GMT+0800 (Singapore Standard Time)</createdAt>
+</booking>

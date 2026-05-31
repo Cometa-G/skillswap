@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Sessions — SkillSwap</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+<div class="dashboard-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-inner">
+        <div class="sidebar-logo-icon">🎓</div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">Skill<span>Swap</span></span>
+          <span class="sidebar-logo-tagline">Learn, Teach, Grow Together.</span>
+        </div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Dashboard
+      </a>
+      <a href="find-tutor.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Find Tutors
+      </a>
+      <a href="my-sessions.html" class="sidebar-nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        My Sessions
+      </a>
+      <a href="messages.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Messages
+      </a>
+      <a href="notifications.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notifications
+      </a>
+      <div class="sidebar-nav-divider"></div>
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        My Reviews
+      </a>
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Favorites
+      </a>
+      <div class="sidebar-nav-divider"></div>
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Profile
+      </a>
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a>
+      <a href="login.html" class="sidebar-nav-item" style="color:#ef4444;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log-out
+      </a>
+    </nav>
+    <div class="sidebar-help">
+      <div class="sidebar-help-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+      </div>
+      <h5>Need Help?</h5>
+      <p>Visit our Help Center or contact support</p>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="icon-btn" id="sidebarToggle" style="display:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="dashboard-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search tutors, subjects, or skills..." />
+      </div>
+      <div class="dashboard-header-actions">
+        <a href="messages.html" class="icon-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </a>
+        <a href="notifications.html" class="icon-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="badge-dot"></span>
+        </a>
+        <div class="dashboard-user">
+          <div class="avatar-placeholder avatar-md green" style="font-size:14px;">DJ</div>
+          <div class="dashboard-user-info">
+            <span class="dashboard-user-name">Deniel Javier</span>
+            <span class="dashboard-user-role">Student</span>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+    </header>
+
+    <div class="dashboard-content">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
+        <h1 class="page-title" style="margin:0;">My Sessions</h1>
+        <a href="booking.html" class="btn btn-primary btn-sm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Book New Session
+        </a>
+      </div>
+      <p class="page-subtitle">Manage and track all your learning sessions.</p>
+
+      <!-- Tabs -->
+      <div class="sessions-tabs">
+        <button class="session-tab active" onclick="switchTab(this, 'upcoming')">Upcoming</button>
+        <button class="session-tab" onclick="switchTab(this, 'completed')">Completed</button>
+        <button class="session-tab" onclick="switchTab(this, 'cancelled')">Cancelled</button>
+      </div>
+
+      <!-- Upcoming Sessions -->
+      <div id="tab-upcoming">
+
+        <!-- Session 1 -->
+        <div class="session-card">
+          <div class="avatar-placeholder avatar-lg green" style="font-size:16px; flex-shrink:0;">HB</div>
+          <div class="session-card-info">
+            <div class="session-title">Introduction to HCI</div>
+            <div class="session-tutor">with Hyacinth Bautista</div>
+            <div class="session-meta">
+              <span class="session-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                May 30, 2026
+              </span>
+              <span class="session-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                4:00 PM – 5:00 PM
+              </span>
+              <span class="session-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Online
+              </span>
+              <span class="badge badge-green">Confirmed</span>
+              <span class="badge badge-purple">HCI</span>
+            </div>
+          </div>
+          <div class="session-card-actions">
+            <span class="badge badge-green" style="font-size:0.75rem; padding:4px 10px;">Confirmed</span>
+            <a href="messages.html" class="btn btn-outline btn-sm">Message</a>
+            <button class="btn btn-primary btn-sm" onclick="showDetails(this)">View Details</button>
+          </div>
+        </div>
+
+        <!-- Session 2 -->
+        <div class="session-card">
+          <div class="avatar-placeholder avatar-lg blue" style="font-size:16px; flex-shrink:0;">JD</div>
+          <div class="session-card-info">
+            <div class="session-title">Interface Design Principles</div>
+            <div class="session-tutor">with Justine Dian</div>
+            <div class="session-meta">
+              <span class="session-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                June 2, 2026
+              </span>
+              <span class="session-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                1:00 PM – 2:00 PM
+              </span>
+              <span class="session-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Online
+              </span>
+              <span class="badge badge-green">Confirmed</span>
+              <span class="badge badge-purple">UI/UX</span>
+            </div>
+          </div>
+          <div class="session-card-actions">
+            <span class="badge badge-green" style="font-size:0.75rem; padding:4px 10px;">Confirmed</span>
+            <a href="messages.html" class="btn btn-outline btn-sm">Message</a>
+            <button class="btn btn-primary btn-sm" onclick="showDetails(this)">View Details</button>
+          </div>
+        </div>
+
+        <!-- Session 3 -->
+        <div class="session-card">
+          <div class="avatar-placeholder avatar-lg orange" style="font-size:16px; flex-shrink:0;">CA</div>
+          <div class="session-card-info">
+            <div class="session-title">AI Integration</div>
+            <div class="session-tutor">with Carlze Alberca</div>
+            <div class="session-meta">
+              <span class="session-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                June 10, 2026
+              </span>
+              <span class="session-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                3:00 PM – 5:00 PM
+              </span>
+              <span class="session-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Online
+              </span>
+              <span class="badge badge-yellow">Pending</span>
+              <span class="badge badge-purple">AI</span>
+            </div>
+          </div>
+          <div class="session-card-actions">
+            <span class="badge badge-yellow" style="font-size:0.75rem; padding:4px 10px;">Pending</span>
+            <a href="messages.html" class="btn btn-outline btn-sm">Message</a>
+            <button class="btn btn-primary btn-sm" onclick="showDetails(this)">View Details</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Completed Sessions (hidden) -->
+      <div id="tab-completed" style="display:none;">
+        <div style="text-align:center; padding:3rem; color:var(--color-text-muted);">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 1rem; display:block; opacity:0.4;">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <p>No completed sessions yet.</p>
+        </div>
+      </div>
+
+      <!-- Cancelled Sessions (hidden) -->
+      <div id="tab-cancelled" style="display:none;">
+        <div style="text-align:center; padding:3rem; color:var(--color-text-muted);">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 1rem; display:block; opacity:0.4;">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p>No cancelled sessions.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Session Details Modal -->
+<div id="detailsModal" style="
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.5); z-index:1000;
+  align-items:center; justify-content:center; padding:1rem;
+">
+  <div style="
+    background:#fff; border-radius:16px; padding:2rem;
+    max-width:480px; width:100%; box-shadow:0 20px 40px rgba(0,0,0,0.15);
+  ">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem;">
+      <h3 style="font-size:1.125rem; font-weight:700;">Session Details</h3>
+      <button onclick="closeDetails()" style="background:none; border:none; cursor:pointer; color:#64748b;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid #e2e8f0;">
+      <div id="detailsTutorInitials" class="avatar-placeholder avatar-lg green" style="font-size:16px;">HB</div>
+      <div>
+        <div id="detailsTutorName" style="font-weight:600; color:#1e293b;">Hyacinth Bautista</div>
+        <span id="detailsSpecialty" class="badge badge-purple" style="margin-top:4px;">HCI Tutor</span>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:0.75rem; margin-bottom:1.5rem;">
+      <div style="display:flex; justify-content:space-between; font-size:0.875rem;">
+        <span style="color:#64748b;">Topic</span><span id="detailsSessionTitle" style="font-weight:500; text-align:right;">Introduction to HCI</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.875rem;">
+        <span style="color:#64748b;">Status</span><span id="detailsStatus" style="font-weight:500;">Confirmed</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.875rem;">
+        <span style="color:#64748b;">Duration</span><span style="font-weight:500;">60 mins</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.875rem;">
+        <span style="color:#64748b;">Date</span><span id="detailsDate" style="font-weight:500;">May 30, 2026</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.875rem;">
+        <span style="color:#64748b;">Time</span><span id="detailsTime" style="font-weight:500;">4:00 PM</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.875rem;">
+        <span style="color:#64748b;">Location</span><span id="detailsLocation" style="font-weight:500;">Online</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.875rem;">
+        <span style="color:#64748b;">Amount Paid</span><span id="detailsAmount" style="font-weight:700; color:#22c55e;">PHP 360.00</span>
+      </div>
+    </div>
+    <div style="display:flex; gap:0.75rem;">
+      <a href="messages.html" class="btn btn-outline" style="flex:1;">Message Tutor</a>
+      <button onclick="closeDetails()" class="btn btn-primary" style="flex:1;">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  if (window.innerWidth <= 768) sidebarToggle.style.display = 'flex';
+  sidebarToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  window.addEventListener('resize', () => {
+    sidebarToggle.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+    if (window.innerWidth > 768) sidebar.classList.remove('open');
+  });
+
+  function switchTab(btn, tabId) {
+    document.querySelectorAll('.session-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    ['upcoming', 'completed', 'cancelled'].forEach(id => {
+      document.getElementById('tab-' + id).style.display = id === tabId ? 'block' : 'none';
+    });
+  }
+
+  function showDetails(button) {
+    if (window.SkillSwapApp?.showSessionDetails && button) {
+      window.SkillSwapApp.showSessionDetails(button);
+      return;
+    }
+    document.getElementById('detailsModal').style.display = 'flex';
+  }
+
+  function closeDetails() {
+    document.getElementById('detailsModal').style.display = 'none';
+  }
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+<script src="tutor-mode.js"></script>
+</body>
+</html>

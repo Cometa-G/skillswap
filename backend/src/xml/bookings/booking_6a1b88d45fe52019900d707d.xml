@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../booking-summary.xsl"?>
+<booking>
+  <id>6a1b88d45fe52019900d707d</id>
+  <student>6a1b812c7e761e60d11de6f4</student>
+  <tutor>6a1b81557e761e60d11de6f5</tutor>
+  <skill>I need help preparing our HCI usability testing plan and final project presentation.</skill>
+  <details>I need help preparing our HCI usability testing plan and final project presentation.</details>
+  <encryptedDetails>s584wEWiyf7zfzYD.VaNahBkapZz/hdC1Wdepmw==.J8wQXUV9cz85LPgU3rgz1ipzywjizoZ6moF5J3gOzaBdHoAsU4aq/Y2mAlI0XT/PHGCDpWmJ3eNnbmflTvk9fwot0gUb7tY5DtgBSM/ZNKYhC5UY</encryptedDetails>
+  <sessionType>1-on-1 session</sessionType>
+  <sessionDate>May 31, 2026</sessionDate>
+  <sessionTime>5:00 PM</sessionTime>
+  <meetingType>Online</meetingType>
+  <paymentMethod>💚 GCash</paymentMethod>
+  <amountPaid>360</amountPaid>
+  <status>pending</status>
+  <createdAt>Sun May 31 2026 09:03:16 GMT+0800 (Singapore Standard Time)</createdAt>
+</booking>

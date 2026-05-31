@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../booking-summary.xsl"?>
+<booking>
+  <id>demo-booking-1780195183593</id>
+  <student>demo-user-1780195183542</student>
+  <tutor>demo-tutor-cometa-gino</tutor>
+  <tutorName>Cometa Gino</tutorName>
+  <skill>Programming search demo</skill>
+  <details>Student booking for Cometa Gino</details>
+  <encryptedDetails>Q9F5vzBJ0CWmOL53.39RTkUbeiggoDIBzY2yNOw==.YwJF6JmlGO8ePev0VVn41K54GUYgwGRt95hoh4dbig==</encryptedDetails>
+  <sessionType>1-on-1 Session</sessionType>
+  <sessionDate>May 31, 2026</sessionDate>
+  <sessionTime>4:00 PM</sessionTime>
+  <meetingType>Online</meetingType>
+  <paymentMethod>GCash</paymentMethod>
+  <amountPaid>360</amountPaid>
+  <status>pending</status>
+  <createdAt>2026-05-31T02:39:43.593Z</createdAt>
+</booking>

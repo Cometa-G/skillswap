@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../booking-summary.xsl"?>
+<booking>
+  <id>6a1b89f97ff954b4c22a2921</id>
+  <student>6a1b812c7e761e60d11de6f4</student>
+  <tutor>6a1b81557e761e60d11de6f5</tutor>
+  <tutorName>Justine Dian</tutorName>
+  <skill>abcdefghijklmnopqrstuvwxyz</skill>
+  <details>abcdefghijklmnopqrstuvwxyz</details>
+  <encryptedDetails>wNTPuYVxygCVgDx8.Py+Mh31F1Lu3PrzOgk7ThA==.YeWpPiGiCNWIiNkocfv9qXrCAlKGRoXvcCA=</encryptedDetails>
+  <sessionType>1-on-1 session</sessionType>
+  <sessionDate>May 31, 2026</sessionDate>
+  <sessionTime>5:00 PM</sessionTime>
+  <meetingType>Online</meetingType>
+  <paymentMethod>💚 GCash</paymentMethod>
+  <amountPaid>260</amountPaid>
+  <status>pending</status>
+  <createdAt>Sun May 31 2026 09:08:09 GMT+0800 (Singapore Standard Time)</createdAt>
+</booking>

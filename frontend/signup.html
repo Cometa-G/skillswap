@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account — SkillSwap</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="auth-page">
+
+    <!-- LEFT PANEL — Branding -->
+    <div class="auth-left">
+      <div class="auth-left-content">
+        <div class="auth-left-logo">
+          <div class="auth-left-logo-icon">🎓</div>
+          <span class="auth-left-logo-name">Skill<span>Swap</span></span>
+        </div>
+        <h2>Start your learning journey today</h2>
+        <p>Join thousands of students and tutors on SkillSwap — the Philippines' premier peer-learning platform.</p>
+        <div class="auth-features">
+          <div class="auth-feature-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Free to join — no hidden fees
+          </div>
+          <div class="auth-feature-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Access 99+ verified tutors
+          </div>
+          <div class="auth-feature-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Book sessions in minutes
+          </div>
+          <div class="auth-feature-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Earn by teaching your skills
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL — Sign Up Form -->
+    <div class="auth-right">
+      <div class="auth-form-container">
+
+        <a href="index.html" style="
+          display:inline-flex; align-items:center; gap:6px;
+          font-size:0.875rem; color:var(--color-text-muted);
+          margin-bottom:1.5rem;
+        ">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to home
+        </a>
+
+        <h2>Create your free account</h2>
+        <p class="auth-subtitle">Already have an account? <a href="login.html">Sign in</a></p>
+
+        <!-- Role Toggle -->
+        <div style="
+          display:flex; gap:0; margin-bottom:1.5rem;
+          background:var(--color-bg-grey); border-radius:8px; padding:4px;
+        ">
+          <button id="roleStudent" onclick="setRole('student')" style="
+            flex:1; padding:8px; border-radius:6px; border:none; cursor:pointer;
+            font-size:0.875rem; font-weight:600; transition:all 0.2s;
+            background:var(--color-primary); color:#fff;
+          ">
+            👨‍🎓 Student
+          </button>
+          <button id="roleTutor" onclick="setRole('tutor')" style="
+            flex:1; padding:8px; border-radius:6px; border:none; cursor:pointer;
+            font-size:0.875rem; font-weight:600; transition:all 0.2s;
+            background:transparent; color:var(--color-text-muted);
+          ">
+            👨‍🏫 Tutor
+          </button>
+        </div>
+
+        <!-- Social Signup -->
+        <div style="display:flex; gap:0.75rem; margin-bottom:0.5rem;">
+          <button class="social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            Sign up with Google
+          </button>
+          <button class="social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            Sign up with Apple
+          </button>
+        </div>
+
+        <div class="auth-divider"><span>or sign up with email</span></div>
+
+        <!-- Signup Form -->
+        <form class="auth-form" id="signupForm">
+
+          <!-- Full Name -->
+          <div class="form-group">
+            <label class="form-label" for="fullName">Full Name</label>
+            <input type="text" id="fullName" class="form-input" placeholder="Enter your full name" required />
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="signupEmail">Email address</label>
+            <input type="email" id="signupEmail" class="form-input" placeholder="Enter your email" required />
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="signupPassword">Password</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="signupPassword" class="form-input" placeholder="Create a password (min. 8 chars)" required minlength="8" />
+              <button type="button" class="password-toggle" onclick="togglePassword('signupPassword', this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm your password" required />
+              <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword', this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Terms -->
+          <div class="checkbox-group">
+            <input type="checkbox" id="agreeTerms" required />
+            <label for="agreeTerms">
+              I agree to the <a href="#" style="color:var(--color-primary);">Terms of Service</a> and
+              <a href="#" style="color:var(--color-primary);">Privacy Policy</a>
+            </label>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:12px; margin-top:0.5rem;">
+            Create Free Account
+          </button>
+
+        </form>
+
+        <p class="auth-footer-text">
+          Already have an account? <a href="login.html">Sign in</a>
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentRole = 'student';
+    sessionStorage.setItem('skillswapRole', currentRole);
+    localStorage.removeItem('skillswapRole');
+
+    function setRole(role) {
+      currentRole = role;
+      sessionStorage.setItem('skillswapRole', role);
+      localStorage.removeItem('skillswapRole');
+      const studentBtn = document.getElementById('roleStudent');
+      const tutorBtn = document.getElementById('roleTutor');
+      if (role === 'student') {
+        studentBtn.style.background = 'var(--color-primary)';
+        studentBtn.style.color = '#fff';
+        tutorBtn.style.background = 'transparent';
+        tutorBtn.style.color = 'var(--color-text-muted)';
+      } else {
+        tutorBtn.style.background = 'var(--color-primary)';
+        tutorBtn.style.color = '#fff';
+        studentBtn.style.background = 'transparent';
+        studentBtn.style.color = 'var(--color-text-muted)';
+      }
+    }
+
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      btn.innerHTML = isPassword
+        ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+             <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+             <line x1="1" y1="1" x2="23" y2="23"/>
+           </svg>`
+        : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+             <circle cx="12" cy="12" r="3"/>
+           </svg>`;
+    }
+
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const pw = document.getElementById('signupPassword').value;
+      const cpw = document.getElementById('confirmPassword').value;
+      if (pw !== cpw) {
+        alert('Passwords do not match.');
+        return;
+      }
+      sessionStorage.setItem('skillswapRole', currentRole);
+      localStorage.removeItem('skillswapRole');
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+  <script src="tutor-mode.js"></script>
+
+</body>
+</html>

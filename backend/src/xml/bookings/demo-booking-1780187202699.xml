@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../booking-summary.xsl"?>
+<booking>
+  <id>demo-booking-1780187202699</id>
+  <student>demo-user-1780187202605</student>
+  <tutor>demo-tutor-hyacinth</tutor>
+  <skill>HCI final project review</skill>
+  <details>XML and XSLT demo details.</details>
+  <encryptedDetails>9rjevuAM3wu546fQ.y+I/0/ypNr/0H3e3vdugYA==.XxOh7ROm0cRdgEiIzatYRbCjxUB0D/FRgu4=</encryptedDetails>
+  <status>pending</status>
+  <createdAt>2026-05-31T00:26:42.699Z</createdAt>
+</booking>

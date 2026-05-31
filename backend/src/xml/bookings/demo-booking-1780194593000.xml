@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../booking-summary.xsl"?>
+<booking>
+  <id>demo-booking-1780194593000</id>
+  <student>demo-user-1780194592953</student>
+  <tutor>demo-tutor-hyacinth</tutor>
+  <tutorName>Hyacinth Bautista</tutorName>
+  <skill>Scoped booking test</skill>
+  <details>Tutor visibility check</details>
+  <encryptedDetails>/uST7uAUTrEbTj9v.WK9P/AB69fo5MfROIY9Qqw==.Nv8h/Q+MjjSIH8IT+5F9/+cy/Qm7AQ==</encryptedDetails>
+  <sessionType>1-on-1 Session</sessionType>
+  <sessionDate>May 31, 2026</sessionDate>
+  <sessionTime>4:00 PM</sessionTime>
+  <meetingType>Online</meetingType>
+  <paymentMethod>GCash</paymentMethod>
+  <amountPaid>360</amountPaid>
+  <status>pending</status>
+  <createdAt>2026-05-31T02:29:53.000Z</createdAt>
+</booking>

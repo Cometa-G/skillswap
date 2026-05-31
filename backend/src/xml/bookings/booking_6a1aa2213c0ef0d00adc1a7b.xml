@@ -1,0 +1,8 @@
+<booking>
+  <id>6a1aa2213c0ef0d00adc1a7b</id>
+  <student>6a1938a0a944aa993c9a639d</student>
+  <tutor>6a1aa00e3c0ef0d00adc1a79</tutor>
+  <skill>Math</skill>
+  <status>pending</status>
+  <createdAt>Sat May 30 2026 16:38:57 GMT+0800 (Singapore Standard Time)</createdAt>
+</booking>
