@@ -1,5 +1,5 @@
 (() => {
-  const API_BASE = window.location.origin + "/api";
+  const API_BASE = "https://skillswap-9vg6.onrender.com/api";
   const TOKEN_KEY = "skillswapToken";
   const USER_KEY = "skillswapUser";
   const ROLE_KEY = "skillswapRole";
@@ -699,7 +699,7 @@
     const user = getUser();
     if (!user || typeof io === "undefined") return;
 
-    const socket = io("http://localhost:3000");
+    const socket = io();
     socket.emit("join", user.id);
     socket.on("new_notification", (data) => {
       notify(data.message || data.title || "New notification", "success");
