@@ -15,6 +15,9 @@ const authRoutes = require("./routes/authRoutes");
 const skillRoutes = require("./routes/skillRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
+const chatRoutes = require("./routes/chatRoutes");
+const Conversation = require("./models/conversation");
+const Message = require("./models/message");
 const { encrypt, decrypt } = require("./security");
 
 const app = express();
@@ -39,6 +42,7 @@ const demoStore = {
   users: [],
   bookings: [],
   notifications: [],
+  conversations: [],
   messages: [],
   skills: [
     {
@@ -180,6 +184,41 @@ function demoAuth(req, res, next) {
   } catch {
     res.status(401).json({ message: "Invalid token" });
   }
+}
+
+function demoConversationFor(userId, participantId) {
+  const participants = [String(userId), String(participantId)].sort();
+  let conversation = demoStore.conversations.find((item) => (
+    item.participants.map(String).sort().join(":") === participants.join(":")
+  ));
+
+  if (!conversation) {
+    conversation = {
+      id: `demo-conversation-${participants.join("-")}`,
+      participants,
+      lastMessage: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    demoStore.conversations.unshift(conversation);
+  }
+
+  return conversation;
+}
+
+function demoPublicConversation(conversation) {
+  return {
+    ...conversation,
+    _id: conversation.id
+  };
+}
+
+function demoPublicMessage(message) {
+  return {
+    ...message,
+    _id: message.id,
+    text: decrypt(message.encryptedText)
+  };
 }
 
 app.post("/api/auth/register", (req, res, next) => {
@@ -421,6 +460,83 @@ app.get("/api/notifications", demoAuth, (req, res, next) => {
   )));
 });
 
+app.post("/api/conversations", demoAuth, (req, res, next) => {
+  if (demoOnly(req, res, next) !== null) return;
+  const participantId = String(req.body.participantId || "").trim();
+  if (!participantId) return res.status(400).json({ message: "participantId is required" });
+  if (participantId === String(req.user.id)) {
+    return res.status(400).json({ message: "A conversation requires two different users" });
+  }
+
+  res.status(200).json(demoPublicConversation(demoConversationFor(req.user.id, participantId)));
+});
+
+app.get("/api/conversations", demoAuth, (req, res, next) => {
+  if (demoOnly(req, res, next) !== null) return;
+  res.json(demoStore.conversations
+    .filter((conversation) => conversation.participants.includes(String(req.user.id)))
+    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+    .map(demoPublicConversation));
+});
+
+app.get("/api/users/:userId/conversations", demoAuth, (req, res, next) => {
+  if (demoOnly(req, res, next) !== null) return;
+  if (String(req.params.userId) !== String(req.user.id)) {
+    return res.status(403).json({ message: "You can only view your own conversations" });
+  }
+
+  res.json(demoStore.conversations
+    .filter((conversation) => conversation.participants.includes(String(req.user.id)))
+    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+    .map(demoPublicConversation));
+});
+
+app.get("/api/conversations/:conversationId/messages", demoAuth, (req, res, next) => {
+  if (demoOnly(req, res, next) !== null) return;
+  const conversation = demoStore.conversations.find((item) => item.id === req.params.conversationId);
+  if (!conversation || !conversation.participants.includes(String(req.user.id))) {
+    return res.status(404).json({ message: "Conversation not found" });
+  }
+
+  res.json(demoStore.messages
+    .filter((message) => message.conversationId === conversation.id)
+    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+    .map(demoPublicMessage));
+});
+
+function sendDemoMessage(req, res, next) {
+  if (demoOnly(req, res, next) !== null) return;
+  const text = String(req.body.text || "").trim();
+  const conversationId = String(req.body.conversationId || req.params.conversationId || "").trim();
+  const conversation = demoStore.conversations.find((item) => item.id === conversationId);
+  if (!conversation || !conversation.participants.includes(String(req.user.id))) {
+    return res.status(404).json({ message: "Conversation not found" });
+  }
+  if (!text) return res.status(400).json({ message: "Message text is required" });
+
+  const createdAt = new Date().toISOString();
+  const message = {
+    id: `chat-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    conversationId,
+    senderId: String(req.user.id),
+    encryptedText: encrypt(text.slice(0, 2000)),
+    createdAt,
+    updatedAt: createdAt
+  };
+  conversation.lastMessage = { text: text.slice(0, 2000), senderId: String(req.user.id), createdAt };
+  conversation.updatedAt = createdAt;
+  demoStore.messages.push(message);
+  demoStore.messages = demoStore.messages.slice(-1000);
+
+  const publicMessage = demoPublicMessage(message);
+  io.to(conversationId).emit("chat_message", publicMessage);
+  res.status(201).json(publicMessage);
+}
+
+app.post("/api/messages", demoAuth, sendDemoMessage);
+
+app.post("/api/conversations/:conversationId/messages", demoAuth, sendDemoMessage);
+
 app.post("/api/security/demo", (req, res, next) => {
   const encrypted = encrypt(req.body.text || "SkillSwap secure message");
   res.json({
@@ -445,6 +561,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/skills", skillRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api", chatRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(frontendDir, "index.html"));
@@ -467,18 +584,76 @@ io.on("connection", (socket) => {
     console.log(`User ${userId} joined room`);
   });
 
-  socket.on("chat_join", (conversationId, callback) => {
+  socket.on("chat_join", async (conversationId, callback) => {
     if (!conversationId) return;
     socket.join(conversationId);
+    if (!isDemoMode()) {
+      try {
+        const messages = await Message.find({ conversationId })
+          .sort({ createdAt: 1 })
+          .limit(100);
+        if (typeof callback === "function") {
+          callback(messages.map((message) => ({
+            id: message._id,
+            conversationId: message.conversationId,
+            senderId: message.senderId,
+            text: message.text,
+            createdAt: message.createdAt,
+            updatedAt: message.updatedAt
+          })));
+        }
+      } catch {
+        if (typeof callback === "function") callback([]);
+      }
+      return;
+    }
+
     const messages = demoStore.messages
       .filter((message) => message.conversationId === conversationId)
-      .slice(-50);
+      .slice(-50)
+      .map(demoPublicMessage);
     if (typeof callback === "function") callback(messages);
   });
 
-  socket.on("chat_message", (data, callback) => {
+  socket.on("chat_message", async (data, callback) => {
     if (!data?.conversationId || !data?.text) return;
+    if (!isDemoMode()) {
+      try {
+        const conversation = await Conversation.findOne({
+          _id: data.conversationId,
+          participants: data.senderId
+        });
+        if (!conversation) return;
 
+        const message = await Message.create({
+          conversationId: conversation._id,
+          senderId: data.senderId,
+          text: String(data.text).slice(0, 2000)
+        });
+        conversation.lastMessage = {
+          text: message.text,
+          senderId: message.senderId,
+          createdAt: message.createdAt
+        };
+        await conversation.save();
+
+        const publicMessage = {
+          id: message._id,
+          conversationId: message.conversationId,
+          senderId: message.senderId,
+          text: message.text,
+          createdAt: message.createdAt,
+          updatedAt: message.updatedAt
+        };
+        io.to(String(conversation._id)).emit("chat_message", publicMessage);
+        if (typeof callback === "function") callback({ ok: true, message: publicMessage });
+      } catch (err) {
+        if (typeof callback === "function") callback({ ok: false, message: err.message });
+      }
+      return;
+    }
+
+    const encryptedText = encrypt(String(data.text).slice(0, 1000));
     const message = {
       id: `chat-${Date.now()}-${Math.random().toString(16).slice(2)}`,
       conversationId: String(data.conversationId),
@@ -486,8 +661,12 @@ io.on("connection", (socket) => {
       senderName: String(data.senderName || "SkillSwap User"),
       senderInitials: String(data.senderInitials || "SS"),
       recipientId: String(data.recipientId || ""),
-      text: String(data.text).slice(0, 1000),
+      encryptedText,
       createdAt: new Date().toISOString()
+    };
+    const publicMessage = {
+      ...message,
+      text: decrypt(encryptedText)
     };
 
     demoStore.messages.push(message);
@@ -495,8 +674,8 @@ io.on("connection", (socket) => {
     const target = message.recipientId
       ? io.to(message.conversationId).to(message.recipientId)
       : io.to(message.conversationId);
-    target.emit("chat_message", message);
-    if (typeof callback === "function") callback({ ok: true, message });
+    target.emit("chat_message", publicMessage);
+    if (typeof callback === "function") callback({ ok: true, message: publicMessage });
   });
 
   socket.on("typing", (data) => {

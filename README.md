@@ -37,6 +37,32 @@ http://localhost:3000
 
 If `npm start` is blocked by PowerShell script policy, use `node src/server.js`.
 
+## RabbitMQ Setup
+
+The backend reads RabbitMQ settings from `backend/.env`:
+
+```text
+RABBITMQ_URL=amqp://localhost
+RABBITMQ_QUEUE=notifications
+```
+
+For local RabbitMQ, install and start RabbitMQ on your machine, then keep `RABBITMQ_URL=amqp://localhost`.
+
+For an independent hosted RabbitMQ server, replace `RABBITMQ_URL` with the provider URL, for example:
+
+```text
+RABBITMQ_URL=amqps://username:password@host/vhost
+```
+
+The app will continue running if RabbitMQ is unavailable. In that case, booking notifications are saved directly as a fallback.
+
+To run the optional queue consumer separately:
+
+```powershell
+cd C:\Users\gino2\Desktop\SkillSwap\backend
+node src/services/consumer.js
+```
+
 ## Demo Accounts
 
 You can create a new account from the signup page.

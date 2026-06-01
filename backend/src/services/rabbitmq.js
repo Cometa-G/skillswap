@@ -3,17 +3,25 @@ const amqp = require("amqplib");
 let channel;
 let connection;
 
+function rabbitUrl() {
+  return process.env.RABBITMQ_URL || "amqp://localhost";
+}
+
+function queueName(name) {
+  return name || process.env.RABBITMQ_QUEUE || "notifications";
+}
+
 async function connectRabbitMQ() {
   try {
-    connection = await amqp.connect("amqp://localhost");
+    connection = await amqp.connect(rabbitUrl());
     channel = await connection.createChannel();
 
-    await channel.assertQueue("notifications");
+    await channel.assertQueue(queueName(), { durable: true });
 
     console.log("RabbitMQ Connected");
     return channel;
   } catch (err) {
-    console.warn("RabbitMQ unavailable. Notifications will be saved directly.");
+    console.warn(`RabbitMQ unavailable at ${rabbitUrl()}. Notifications will be saved directly.`);
     return null;
   }
 }
@@ -28,8 +36,9 @@ function sendToQueue(queue, data) {
   }
 
   channel.sendToQueue(
-    queue,
-    Buffer.from(JSON.stringify(data))
+    queueName(queue),
+    Buffer.from(JSON.stringify(data)),
+    { persistent: true }
   );
 
   return true;

@@ -934,12 +934,12 @@
   }
 
   const CHAT_CONTACTS = {
-    "hyacinth bautista": { id: "demo-tutor-hyacinth", initials: "HB", color: "green" },
-    "justine dian": { id: "demo-tutor-justine", initials: "JD", color: "blue" },
-    "gino cometa": { id: "demo-tutor-cometa-gino", initials: "GC", color: "orange" },
-    "cometa gino": { id: "demo-tutor-cometa-gino", initials: "GC", color: "orange" },
-    "maekyla roble": { id: "demo-user-maekyla-roble", initials: "MR", color: "purple" },
-    "deniel javier": { id: "demo-user-deniel-javier", initials: "DJ", color: "green" }
+    "hyacinth bautista": { id: "demo-tutor-hyacinth", username: "hyacinth@skillswap.demo", initials: "HB", color: "green" },
+    "justine dian": { id: "demo-tutor-justine", username: "justine@skillswap.demo", initials: "JD", color: "blue" },
+    "gino cometa": { id: "demo-tutor-cometa-gino", username: "cometagino04@gmail.com", initials: "GC", color: "orange" },
+    "cometa gino": { id: "demo-tutor-cometa-gino", username: "cometagino04@gmail.com", initials: "GC", color: "orange" },
+    "maekyla roble": { id: "demo-user-maekyla-roble", username: "maekyla.roble@skillswap.demo", initials: "MR", color: "purple" },
+    "deniel javier": { id: "demo-user-deniel-javier", username: "deniel.javier@skillswap.demo", initials: "DJ", color: "green" }
   };
 
   function getChatUser() {
@@ -966,6 +966,7 @@
     const known = CHAT_CONTACTS[key] || {};
     return {
       id: known.id || `contact-${key.replace(/[^a-z0-9]+/g, "-") || "user"}`,
+      username: known.username || "",
       name: cleanText(name) || "SkillSwap User",
       initials: known.initials || cleanText(initials) || initialsFromName(name),
       color: known.color || color || "green"
@@ -998,6 +999,7 @@
     const runtimeId = ++messageRuntime;
     const conversations = {};
     const contacts = {};
+    const localOnlyConversations = new Set();
     let activeConversationId = "";
     let typingTimer = null;
     const socket = getSocket();
@@ -1009,7 +1011,7 @@
       const bubbleClass = isMine ? "sent" : "received";
       const color = isMine ? "#3b82f6" : "#22c55e";
       return `
-        <div class="chat-message ${bubbleClass}" data-message-id="${escapeHtml(message.id || "")}">
+        <div class="chat-message ${bubbleClass}" data-message-id="${escapeHtml(message.id || message._id || "")}">
           <div class="avatar-placeholder" style="width:28px; height:28px; background:${color}; font-size:11px; flex-shrink:0;">${escapeHtml(initials)}</div>
           <div><div class="chat-bubble">${escapeHtml(message.text)}</div><div class="chat-time">${escapeHtml(chatTime(message.createdAt))}</div></div>
         </div>
@@ -1054,6 +1056,63 @@
       return item;
     }
 
+    function normalizeConversation(raw, fallbackContact) {
+      const id = String(raw?.id || raw?._id || raw?.conversationId || "");
+      const participants = Array.isArray(raw?.participants) ? raw.participants : [];
+      const other = participants.find((participant) => String(participant?.id || participant?._id || participant) !== currentUser.id);
+      const username = other?.username || fallbackContact?.username || "";
+      const name = username ? displayNameFromUser({ username }) : fallbackContact?.name || "SkillSwap User";
+      const contact = fallbackContact || {
+        id: String(other?.id || other?._id || other || ""),
+        username,
+        name,
+        initials: initialsFromName(name),
+        color: "green"
+      };
+      contact.id = contact.id || String(other?.id || other?._id || other || "");
+      contact.username = contact.username || username;
+      contact.name = contact.name || name;
+      contact.initials = contact.initials || initialsFromName(contact.name);
+      contact.color = contact.color || "green";
+      return { id, contact, lastMessage: raw?.lastMessage || null, updatedAt: raw?.updatedAt || raw?.createdAt };
+    }
+
+    function isServerConversationId(conversationId) {
+      return /^[a-f\d]{24}$/i.test(String(conversationId)) || String(conversationId).startsWith("demo-conversation-");
+    }
+
+    async function getOrCreateConversation(contact) {
+      if (!getToken()) {
+        return { id: conversationIdFor(contact.id), contact };
+      }
+
+      try {
+        const conversation = await request("/conversations", {
+          method: "POST",
+          body: JSON.stringify({ participantId: contact.id, participantUsername: contact.username })
+        });
+        return normalizeConversation(conversation, contact);
+      } catch (err) {
+        notify(`Could not open saved conversation: ${err.message}`, "error");
+        return { id: conversationIdFor(contact.id), contact, localOnly: true };
+      }
+    }
+
+    async function loadMessages(conversationId) {
+      if (!getToken() || localOnlyConversations.has(conversationId)) {
+        return new Promise((resolve) => {
+          socket?.emit("chat_join", conversationId, (history) => resolve(Array.isArray(history) ? history : []));
+        });
+      }
+
+      try {
+        return await request(`/conversations/${encodeURIComponent(conversationId)}/messages`);
+      } catch (err) {
+        notify(`Could not load messages: ${err.message}`, "error");
+        return [];
+      }
+    }
+
     function renderConversation(conversationId) {
       const messages = document.getElementById("chatMessages");
       const contact = contacts[conversationId];
@@ -1070,9 +1129,18 @@
       messages.scrollTop = messages.scrollHeight;
     }
 
-    function openConversation(contact, conversationId) {
+    async function openConversation(contact, requestedConversationId = "") {
+      const canReuseRequested = requestedConversationId
+        && contacts[requestedConversationId]
+        && (!getToken() || isServerConversationId(requestedConversationId));
+      const resolved = canReuseRequested
+        ? { id: requestedConversationId, contact: contacts[requestedConversationId] }
+        : await getOrCreateConversation(contact);
+      const conversationId = resolved.id;
+      if (resolved.localOnly) localOnlyConversations.add(conversationId);
       activeConversationId = conversationId;
-      contacts[conversationId] = contact;
+      contacts[conversationId] = resolved.contact;
+      ensureConversationItem(resolved.contact, conversationId);
       document.querySelectorAll(".message-list-item").forEach((item) => {
         item.classList.toggle("active", item.dataset.conversationId === conversationId);
       });
@@ -1080,18 +1148,33 @@
 
       const chatName = document.getElementById("chatName");
       const avatar = document.getElementById("chatAvatar");
-      if (chatName) chatName.textContent = contact.name;
+      if (chatName) chatName.textContent = resolved.contact.name;
       if (avatar) {
-        avatar.textContent = contact.initials;
-        avatar.className = `avatar-placeholder avatar-md ${contact.color}`;
+        avatar.textContent = resolved.contact.initials;
+        avatar.className = `avatar-placeholder avatar-md ${resolved.contact.color}`;
       }
-      socket?.emit("chat_join", conversationId, (history) => {
-        if (Array.isArray(history) && history.length) {
-          conversations[conversationId] = history;
-        }
-        renderConversation(conversationId);
-      });
+      socket?.emit("chat_join", conversationId);
       renderConversation(conversationId);
+      conversations[conversationId] = await loadMessages(conversationId);
+      if (activeConversationId === conversationId) renderConversation(conversationId);
+      const last = conversations[conversationId]?.[conversations[conversationId].length - 1];
+      if (last) updateConversationPreview(conversationId, last.text, last.createdAt);
+    }
+
+    async function loadConversationList() {
+      if (!getToken()) return;
+      try {
+        const saved = await request("/conversations");
+        saved.map(normalizeConversation).filter((item) => item.id).forEach((item) => {
+          contacts[item.id] = item.contact;
+          ensureConversationItem(item.contact, item.id);
+          if (item.lastMessage?.text) {
+            updateConversationPreview(item.id, item.lastMessage.text, item.lastMessage.createdAt || item.updatedAt);
+          }
+        });
+      } catch (err) {
+        notify(`Could not load conversations: ${err.message}`, "error");
+      }
     }
 
     document.querySelectorAll(".message-list-item").forEach((item) => {
@@ -1117,7 +1200,7 @@
       openConversation(contact, conversationId);
     };
 
-    window.sendMessage = () => {
+    window.sendMessage = async () => {
       const input = document.getElementById("chatInput");
       const text = input?.value.trim();
       if (!text || !activeConversationId) return;
@@ -1136,7 +1219,28 @@
       renderConversation(activeConversationId);
       input.value = "";
       updateConversationPreview(activeConversationId, text, optimistic.createdAt);
-      socket?.emit("chat_message", optimistic);
+      if (!getToken() || localOnlyConversations.has(activeConversationId)) {
+        socket?.emit("chat_message", optimistic);
+        return;
+      }
+
+      try {
+        const saved = await request("/messages", {
+          method: "POST",
+          body: JSON.stringify({ conversationId: activeConversationId, text })
+        });
+        conversations[activeConversationId] = (conversations[activeConversationId] || [])
+          .filter((message) => message.id !== optimistic.id)
+          .concat(saved)
+          .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        updateConversationPreview(activeConversationId, saved.text, saved.createdAt);
+        renderConversation(activeConversationId);
+      } catch (err) {
+        conversations[activeConversationId] = (conversations[activeConversationId] || [])
+          .filter((message) => message.id !== optimistic.id);
+        renderConversation(activeConversationId);
+        notify(`Could not send message: ${err.message}`, "error");
+      }
     };
 
     window.handleEnter = (event) => {
@@ -1166,7 +1270,11 @@
         color: "green"
       };
       ensureConversationItem(contact, message.conversationId);
-      conversations[message.conversationId] = [...(conversations[message.conversationId] || []), message];
+      const messageId = String(message.id || message._id || "");
+      const existing = conversations[message.conversationId] || [];
+      if (messageId && existing.some((item) => String(item.id || item._id || "") === messageId)) return;
+      conversations[message.conversationId] = [...existing, message]
+        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
       updateConversationPreview(message.conversationId, message.text, message.createdAt, true);
       if (message.conversationId === activeConversationId) renderConversation(activeConversationId);
     });
@@ -1185,11 +1293,13 @@
       if (status) status.textContent = "Online";
     });
 
-    const activeItem = document.querySelector(".message-list-item.active") || document.querySelector(".message-list-item");
-    if (activeItem) {
+    loadConversationList().then(() => {
+      if (runtimeId !== messageRuntime) return;
+      const activeItem = document.querySelector(".message-list-item.active") || document.querySelector(".message-list-item");
+      if (!activeItem) return;
       const contact = contacts[activeItem.dataset.conversationId];
       openConversation(contact, activeItem.dataset.conversationId);
-    }
+    });
   }
 
   async function initLiveSessions() {
