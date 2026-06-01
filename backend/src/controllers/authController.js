@@ -8,6 +8,14 @@ const demoAccountRoles = {
   "cometagino04@gmail.com": "tutor"
 };
 
+function escapeRegex(value) {
+  return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function normalizeSearchRole(role) {
+  return role === "student" || role === "tutor" ? role : null;
+}
+
 function createToken(user) {
   return jwt.sign(
     {
@@ -136,5 +144,33 @@ exports.login = async (req, res) => {
     res.status(500).json({
       message: err.message,
     });
+  }
+};
+
+exports.searchUsers = async (req, res) => {
+  try {
+    const query = String(req.query.query || req.query.q || "").trim();
+    const role = normalizeSearchRole(req.query.role);
+    const limit = Math.min(Number.parseInt(req.query.limit || "20", 10) || 20, 50);
+    const filter = {};
+
+    if (role) filter.role = role;
+    if (query) {
+      filter.username = { $regex: escapeRegex(query), $options: "i" };
+    }
+
+    const users = await User.find(filter)
+      .select("username role createdAt")
+      .sort({ createdAt: -1 })
+      .limit(limit);
+
+    res.json(users.map((user) => ({
+      id: user._id,
+      username: user.username,
+      role: user.role,
+      createdAt: user.createdAt
+    })));
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

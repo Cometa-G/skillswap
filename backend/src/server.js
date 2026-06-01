@@ -39,6 +39,7 @@ const demoStore = {
   users: [],
   bookings: [],
   notifications: [],
+  messages: [],
   skills: [
     {
       id: "demo-skill-hci",
@@ -83,6 +84,59 @@ const demoTutorIdsByName = {
   "gino cometa": "demo-tutor-cometa-gino",
   "cometa gino": "demo-tutor-cometa-gino"
 };
+
+function escapeRegex(value) {
+  return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function displayNameFromUsername(username) {
+  return String(username || "")
+    .split("@")[0]
+    .replace(/[._-]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase())
+    .trim();
+}
+
+function demoSearchAccounts(query, role) {
+  const term = String(query || "").trim().toLowerCase();
+  const limitToRole = role === "student" || role === "tutor" ? role : null;
+  const seen = new Set();
+  const results = [];
+
+  const seedAccounts = [
+    ...Object.entries(demoTutorIdsByEmail).map(([username, id]) => ({
+      id,
+      username,
+      role: "tutor"
+    })),
+    ...Object.entries(demoTutorIdsByName).map(([name, id]) => ({
+      id,
+      username: `${name.replace(/\s+/g, ".")}@skillswap.demo`,
+      role: "tutor"
+    })),
+    ...demoStore.users.map((user) => ({
+      id: user.id,
+      username: user.username,
+      role: user.role
+    }))
+  ];
+
+  seedAccounts.forEach((account) => {
+    if (limitToRole && account.role !== limitToRole) return;
+    const name = displayNameFromUsername(account.username);
+    const haystack = `${account.username} ${name} ${account.role}`.toLowerCase();
+    if (term && !haystack.includes(term)) return;
+    if (seen.has(account.username)) return;
+    seen.add(account.username);
+    results.push({
+      id: account.id,
+      username: account.username,
+      role: account.role
+    });
+  });
+
+  return results.slice(0, 20);
+}
 
 function demoUserId(username, role) {
   if (role === "tutor" && demoTutorIdsByEmail[username]) {
@@ -180,6 +234,44 @@ app.post("/api/auth/login", (req, res, next) => {
     user: { id: user.id, username: user.username, role: user.role },
     token: signDemoUser(user)
   });
+});
+
+app.get("/api/auth/search", (req, res, next) => {
+  if (demoOnly(req, res, next) !== null) return;
+
+  const query = req.query.query || req.query.q || "";
+  const role = req.query.role === "tutor" || req.query.role === "student" ? req.query.role : null;
+  const regex = query ? new RegExp(escapeRegex(query), "i") : null;
+
+  const accounts = demoStore.users
+    .concat(Object.entries(demoTutorIdsByEmail).map(([username, id]) => ({
+      id,
+      username,
+      role: "tutor"
+    })))
+    .concat(Object.entries(demoTutorIdsByName).map(([name, id]) => ({
+      id,
+      username: `${name.replace(/\s+/g, ".")}@skillswap.demo`,
+      role: "tutor"
+    })))
+    .filter((account, index, list) => {
+      const key = account.username.toLowerCase();
+      return list.findIndex((item) => item.username.toLowerCase() === key) === index;
+    })
+    .filter((account) => !role || account.role === role)
+    .filter((account) => {
+      if (!regex) return true;
+      const name = displayNameFromUsername(account.username);
+      return regex.test(account.username) || regex.test(name);
+    })
+    .slice(0, 20)
+    .map((account) => ({
+      id: account.id,
+      username: account.username,
+      role: account.role
+    }));
+
+  res.json(accounts);
 });
 
 app.get("/api/skills", (req, res, next) => {
@@ -375,12 +467,52 @@ io.on("connection", (socket) => {
     console.log(`User ${userId} joined room`);
   });
 
+  socket.on("chat_join", (conversationId, callback) => {
+    if (!conversationId) return;
+    socket.join(conversationId);
+    const messages = demoStore.messages
+      .filter((message) => message.conversationId === conversationId)
+      .slice(-50);
+    if (typeof callback === "function") callback(messages);
+  });
+
+  socket.on("chat_message", (data, callback) => {
+    if (!data?.conversationId || !data?.text) return;
+
+    const message = {
+      id: `chat-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      conversationId: String(data.conversationId),
+      senderId: String(data.senderId || ""),
+      senderName: String(data.senderName || "SkillSwap User"),
+      senderInitials: String(data.senderInitials || "SS"),
+      recipientId: String(data.recipientId || ""),
+      text: String(data.text).slice(0, 1000),
+      createdAt: new Date().toISOString()
+    };
+
+    demoStore.messages.push(message);
+    demoStore.messages = demoStore.messages.slice(-500);
+    const target = message.recipientId
+      ? io.to(message.conversationId).to(message.recipientId)
+      : io.to(message.conversationId);
+    target.emit("chat_message", message);
+    if (typeof callback === "function") callback({ ok: true, message });
+  });
+
   socket.on("typing", (data) => {
-    socket.broadcast.emit("user_typing", data);
+    if (data?.conversationId) {
+      socket.to(data.conversationId).emit("user_typing", data);
+    } else {
+      socket.broadcast.emit("user_typing", data);
+    }
   });
 
   socket.on("stop_typing", (data) => {
-    socket.broadcast.emit("user_stopped_typing", data);
+    if (data?.conversationId) {
+      socket.to(data.conversationId).emit("user_stopped_typing", data);
+    } else {
+      socket.broadcast.emit("user_stopped_typing", data);
+    }
   });
 
   socket.on("disconnect", () => {

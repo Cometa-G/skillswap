@@ -297,17 +297,17 @@ const SkillSwapRole = (() => {
     return `
       <div class="tutor-page-heading"><h1>Messages</h1><p>Chat with your tutors and manage your conversation</p></div>
       <div class="tutor-messages-layout">
-        <aside class="tutor-message-list">
+        <aside class="tutor-message-list" id="messagesList">
           <div class="tutor-searchbox">${icon('search')}<input placeholder="Search Messages..."></div>
-          <div class="tutor-conversation active">
+          <div class="tutor-conversation message-list-item active" onclick="openChat('Deniel Javier', 'DJ', 'green')">
             <div class="avatar-photo avatar-lg">DJ</div>
-            <div><strong>Deniel Javier</strong><span>Thanks for the help!</span></div>
-            <small>10:20 am</small>
+            <div><strong class="message-list-name">Deniel Javier</strong><span class="message-list-preview">Thanks for the help!</span></div>
+            <small class="message-list-time">10:20 am</small>
           </div>
         </aside>
         <section class="tutor-chat-panel">
-          <header><div class="avatar-photo avatar-lg">DJ</div><div><h2>Deniel Javier</h2><span>Online</span></div><div class="chat-tools">${icon('video')}${icon('settings')}</div></header>
-          <div class="tutor-chat-feed">
+          <header><div class="avatar-photo avatar-lg" id="chatAvatar">DJ</div><div><h2 id="chatName">Deniel Javier</h2><span class="chat-header-status">Online</span></div><div class="chat-tools">${icon('video')}${icon('settings')}</div></header>
+          <div class="tutor-chat-feed" id="chatMessages">
             ${chatBubble('Hi! I saw you\'re available for a Python tutoring session.', '10:15 am', 'received')}
             ${chatBubble('Hello Daniel! Yes, I am. What topics would you like to cover?', '10:16 am', 'sent')}
             ${chatBubble('I\'m struggling with data structures, specifically linked lists and trees.', '10:17 am', 'received')}
@@ -316,14 +316,14 @@ const SkillSwapRole = (() => {
             ${chatBubble('2 PM works perfectly. I\'ll send you a session invite.', '10:19 am', 'sent')}
             ${chatBubble('Thanks for the help!', '10:20 am', 'received')}
           </div>
-          <footer><button class="icon-btn">+</button><input placeholder="Type a message..."><button class="chat-send-btn"></button></footer>
+          <footer><button class="icon-btn">+</button><input id="chatInput" class="chat-input" placeholder="Type a message..." onkeydown="handleEnter(event)"><button class="chat-send-btn" onclick="sendMessage()"></button></footer>
         </section>
       </div>
     `;
   }
 
   function chatBubble(text, time, type) {
-    return `<div class="tutor-chat-message ${type}"><div class="bubble">${text}</div><span>${time}</span></div>`;
+    return `<div class="chat-message tutor-chat-message ${type}"><div><div class="chat-bubble bubble">${text}</div><span class="chat-time">${time}</span></div></div>`;
   }
 
   function tutorNotifications() {
@@ -663,6 +663,7 @@ const SkillSwapRole = (() => {
         wrap.className = 'dashboard-content';
         wrap.innerHTML = tutorMessages();
         main.appendChild(wrap);
+        window.SkillSwapApp?.initMessages?.();
       }
     }
   }
