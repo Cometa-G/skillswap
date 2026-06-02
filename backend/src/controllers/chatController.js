@@ -43,11 +43,79 @@ function serializeMessage(message) {
   };
 }
 
+function isDemoMode(req) {
+  return req.app.locals.mongoConnected === false;
+}
+
+function getDemoStore(req) {
+  return req.app.locals.demoStore || {
+    conversations: [],
+    messages: []
+  };
+}
+
+function demoConversationFor(store, userId, participantId) {
+  const participants = [normalizeId(userId), normalizeId(participantId)].sort();
+  let conversation = store.conversations.find((item) => (
+    item.participants.map(normalizeId).sort().join(":") === participants.join(":")
+  ));
+
+  if (!conversation) {
+    const now = new Date().toISOString();
+    conversation = {
+      id: `demo-conversation-${participants.join("-")}`,
+      participants,
+      lastMessage: null,
+      createdAt: now,
+      updatedAt: now
+    };
+    store.conversations.unshift(conversation);
+  }
+
+  return conversation;
+}
+
+function serializeDemoConversation(conversation) {
+  return {
+    id: conversation.id,
+    _id: conversation.id,
+    participants: conversation.participants.map((id) => ({ id })),
+    lastMessage: conversation.lastMessage || null,
+    createdAt: conversation.createdAt,
+    updatedAt: conversation.updatedAt
+  };
+}
+
+function serializeDemoMessage(message) {
+  return {
+    id: message.id,
+    _id: message.id,
+    conversationId: message.conversationId,
+    senderId: message.senderId,
+    text: message.text,
+    createdAt: message.createdAt,
+    updatedAt: message.updatedAt
+  };
+}
+
 async function getParticipantConversation(req, res, next) {
   try {
     const currentUserId = normalizeId(req.user?.id);
     const participantId = normalizeId(req.body.participantId || req.params.participantId);
     const participantUsername = String(req.body.participantUsername || "").trim().toLowerCase();
+
+    if (isDemoMode(req)) {
+      if (!participantId) {
+        return res.status(400).json({ message: "participantId is required" });
+      }
+      if (currentUserId === participantId) {
+        return res.status(400).json({ message: "A conversation requires two different users" });
+      }
+
+      const store = getDemoStore(req);
+      const conversation = demoConversationFor(store, currentUserId, participantId);
+      return res.status(200).json(serializeDemoConversation(conversation));
+    }
 
     if (!mongoose.isValidObjectId(currentUserId)) {
       return res.status(400).json({ message: "Valid current user id is required" });
@@ -95,6 +163,14 @@ async function getUserConversations(req, res, next) {
       return res.status(403).json({ message: "You can only view your own conversations" });
     }
 
+    if (isDemoMode(req)) {
+      const store = getDemoStore(req);
+      return res.json(store.conversations
+        .filter((conversation) => conversation.participants.includes(userId))
+        .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+        .map(serializeDemoConversation));
+    }
+
     const conversations = await Conversation.find({ participants: userId })
       .populate("participants", "username role")
       .sort({ updatedAt: -1 });
@@ -107,6 +183,19 @@ async function getUserConversations(req, res, next) {
 
 async function getConversationMessages(req, res, next) {
   try {
+    if (isDemoMode(req)) {
+      const store = getDemoStore(req);
+      const conversation = store.conversations.find((item) => item.id === req.params.conversationId);
+      if (!conversation || !conversation.participants.includes(normalizeId(req.user?.id))) {
+        return res.status(404).json({ message: "Conversation not found" });
+      }
+
+      return res.json(store.messages
+        .filter((message) => message.conversationId === conversation.id)
+        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+        .map(serializeDemoMessage));
+    }
+
     const conversation = await Conversation.findOne({
       _id: req.params.conversationId,
       participants: req.user.id
@@ -130,6 +219,36 @@ async function sendConversationMessage(req, res, next) {
     const text = String(req.body.text || "").trim();
     if (!text) {
       return res.status(400).json({ message: "Message text is required" });
+    }
+
+    if (isDemoMode(req)) {
+      const store = getDemoStore(req);
+      const conversationId = normalizeId(req.body.conversationId || req.params.conversationId);
+      const conversation = store.conversations.find((item) => item.id === conversationId);
+      if (!conversation || !conversation.participants.includes(normalizeId(req.user?.id))) {
+        return res.status(404).json({ message: "Conversation not found" });
+      }
+
+      const now = new Date().toISOString();
+      const message = {
+        id: `chat-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        conversationId,
+        senderId: normalizeId(req.user.id),
+        text: text.slice(0, 2000),
+        createdAt: now,
+        updatedAt: now
+      };
+      store.messages.push(message);
+      conversation.lastMessage = {
+        text: message.text,
+        senderId: message.senderId,
+        createdAt: message.createdAt
+      };
+      conversation.updatedAt = now;
+
+      const payload = serializeDemoMessage(message);
+      req.app.get("io")?.to(conversationId).emit("chat_message", payload);
+      return res.status(201).json(payload);
     }
 
     const conversation = await Conversation.findOne({

@@ -999,9 +999,9 @@
     const runtimeId = ++messageRuntime;
     const conversations = {};
     const contacts = {};
-    const localOnlyConversations = new Set();
     let activeConversationId = "";
     let typingTimer = null;
+    let searchTimer = null;
     const socket = getSocket();
     const currentUser = getChatUser();
 
@@ -1032,10 +1032,11 @@
     function ensureConversationItem(contact, conversationId) {
       contacts[conversationId] = contact;
       let item = document.querySelector(`.message-list-item[data-conversation-id="${CSS.escape(conversationId)}"]`);
-      if (item) return item;
+      if (item && !item.classList.contains("user-search-result")) return item;
 
       const list = document.getElementById("messagesList");
       if (!list) return null;
+      list.querySelector(`.user-search-result[data-contact-id="${CSS.escape(contact.id)}"]`)?.remove();
       list.insertAdjacentHTML("afterbegin", `
         <div class="message-list-item" data-conversation-id="${escapeHtml(conversationId)}" data-contact-id="${escapeHtml(contact.id)}" data-contact-initials="${escapeHtml(contact.initials)}" data-contact-color="${escapeHtml(contact.color)}">
           <div style="position:relative; flex-shrink:0;">
@@ -1083,7 +1084,8 @@
 
     async function getOrCreateConversation(contact) {
       if (!getToken()) {
-        return { id: conversationIdFor(contact.id), contact };
+        notify("Please sign in to start a conversation.", "error");
+        return null;
       }
 
       try {
@@ -1093,18 +1095,12 @@
         });
         return normalizeConversation(conversation, contact);
       } catch (err) {
-        notify(`Could not open saved conversation: ${err.message}`, "error");
-        return { id: conversationIdFor(contact.id), contact, localOnly: true };
+        notify(`Could not open conversation: ${err.message}`, "error");
+        return null;
       }
     }
 
     async function loadMessages(conversationId) {
-      if (!getToken() || localOnlyConversations.has(conversationId)) {
-        return new Promise((resolve) => {
-          socket?.emit("chat_join", conversationId, (history) => resolve(Array.isArray(history) ? history : []));
-        });
-      }
-
       try {
         return await request(`/conversations/${encodeURIComponent(conversationId)}/messages`);
       } catch (err) {
@@ -1136,8 +1132,8 @@
       const resolved = canReuseRequested
         ? { id: requestedConversationId, contact: contacts[requestedConversationId] }
         : await getOrCreateConversation(contact);
+      if (!resolved?.id) return;
       const conversationId = resolved.id;
-      if (resolved.localOnly) localOnlyConversations.add(conversationId);
       activeConversationId = conversationId;
       contacts[conversationId] = resolved.contact;
       ensureConversationItem(resolved.contact, conversationId);
@@ -1162,7 +1158,7 @@
     }
 
     async function loadConversationList() {
-      if (!getToken()) return;
+      if (!getToken()) return 0;
       try {
         const saved = await request("/conversations");
         saved.map(normalizeConversation).filter((item) => item.id).forEach((item) => {
@@ -1172,8 +1168,89 @@
             updateConversationPreview(item.id, item.lastMessage.text, item.lastMessage.createdAt || item.updatedAt);
           }
         });
+        return saved.length;
       } catch (err) {
         notify(`Could not load conversations: ${err.message}`, "error");
+        return 0;
+      }
+    }
+
+    function contactFromUser(user) {
+      const name = displayNameFromUser(user);
+      return {
+        id: String(user.id || user._id || ""),
+        username: user.username || "",
+        name,
+        initials: initialsFromName(name),
+        color: user.role === "tutor" ? "green" : "blue"
+      };
+    }
+
+    function clearUserSearchResults() {
+      document.querySelectorAll(".user-search-result, .user-search-empty").forEach((node) => node.remove());
+    }
+
+    function filterConversationItems(query) {
+      const term = query.toLowerCase();
+      document.querySelectorAll(".message-list-item:not(.user-search-result)").forEach((item) => {
+        const name = item.querySelector(".message-list-name")?.textContent.toLowerCase() || "";
+        const preview = item.querySelector(".message-list-preview")?.textContent.toLowerCase() || "";
+        item.style.display = !term || name.includes(term) || preview.includes(term) ? "flex" : "none";
+      });
+    }
+
+    function renderUserSearchResults(users, query) {
+      clearUserSearchResults();
+      const list = document.getElementById("messagesList");
+      if (!list) return;
+
+      if (!users.length) {
+        list.insertAdjacentHTML("afterbegin", `
+          <div class="message-list-item user-search-empty" style="cursor:default;">
+            <div class="message-list-item-info">
+              <div class="message-list-name">No users found</div>
+              <div class="message-list-preview">Try a username or email address.</div>
+            </div>
+          </div>
+        `);
+        return;
+      }
+
+      users.forEach((user) => {
+        const contact = contactFromUser(user);
+        list.insertAdjacentHTML("afterbegin", `
+          <div class="message-list-item user-search-result" data-contact-id="${escapeHtml(contact.id)}" data-contact-username="${escapeHtml(contact.username)}">
+            <div style="position:relative; flex-shrink:0;">
+              <div class="avatar-placeholder avatar-md ${escapeHtml(contact.color)}" style="font-size:13px;">${escapeHtml(contact.initials)}</div>
+            </div>
+            <div class="message-list-item-info">
+              <div class="message-list-name">${escapeHtml(contact.name)}</div>
+              <div class="message-list-preview">${escapeHtml(contact.username)}</div>
+            </div>
+            <div><span class="message-list-time">Start</span></div>
+          </div>
+        `);
+        const item = list.querySelector(`.user-search-result[data-contact-id="${CSS.escape(contact.id)}"]`);
+        item?.addEventListener("click", async () => {
+          clearUserSearchResults();
+          const input = document.getElementById("msgSearch");
+          if (input) input.value = "";
+          filterConversationItems("");
+          await openConversation(contact);
+        });
+      });
+    }
+
+    async function searchUsers(query) {
+      if (!getToken()) {
+        notify("Please sign in to search users.", "error");
+        return;
+      }
+      try {
+        const users = await request(`/users?query=${encodeURIComponent(query)}&limit=10`);
+        renderUserSearchResults(users, query);
+      } catch (err) {
+        notify(`Could not search users: ${err.message}`, "error");
       }
     }
 
@@ -1195,9 +1272,7 @@
 
     window.openChat = (name, initials, color) => {
       const contact = contactFromName(name, initials, color);
-      const conversationId = conversationIdFor(contact.id);
-      ensureConversationItem(contact, conversationId);
-      openConversation(contact, conversationId);
+      openConversation(contact);
     };
 
     window.sendMessage = async () => {
@@ -1211,7 +1286,6 @@
         senderId: currentUser.id,
         senderName: currentUser.name,
         senderInitials: currentUser.initials,
-        recipientId: contact?.id || "",
         text,
         createdAt: new Date().toISOString()
       };
@@ -1219,8 +1293,8 @@
       renderConversation(activeConversationId);
       input.value = "";
       updateConversationPreview(activeConversationId, text, optimistic.createdAt);
-      if (!getToken() || localOnlyConversations.has(activeConversationId)) {
-        socket?.emit("chat_message", optimistic);
+      if (!getToken()) {
+        notify("Please sign in to send messages.", "error");
         return;
       }
 
@@ -1246,6 +1320,19 @@
     window.handleEnter = (event) => {
       if (event.key === "Enter") window.sendMessage();
     };
+
+    window.filterMessages = (query) => {
+      const value = cleanText(query);
+      clearTimeout(searchTimer);
+      clearUserSearchResults();
+      filterConversationItems(value);
+      if (value.length < 2) return;
+      searchTimer = setTimeout(() => searchUsers(value), 250);
+    };
+
+    document.getElementById("msgSearch")?.addEventListener("input", (event) => {
+      window.filterMessages(event.target.value);
+    });
 
     document.getElementById("chatInput")?.addEventListener("input", () => {
       if (!activeConversationId) return;
@@ -1293,12 +1380,27 @@
       if (status) status.textContent = "Online";
     });
 
-    loadConversationList().then(() => {
+    loadConversationList().then((savedCount) => {
       if (runtimeId !== messageRuntime) return;
-      const activeItem = document.querySelector(".message-list-item.active") || document.querySelector(".message-list-item");
+      if (getToken() && !savedCount) {
+        const messages = document.getElementById("chatMessages");
+        if (messages) {
+          messages.innerHTML = `
+            <div class="chat-message received">
+              <div class="avatar-placeholder" style="width:28px; height:28px; background:#22c55e; font-size:11px; flex-shrink:0;">SS</div>
+              <div><div class="chat-bubble">Search for a user to start a conversation.</div><div class="chat-time">Now</div></div>
+            </div>
+          `;
+        }
+        return;
+      }
+      const activeItem = getToken()
+        ? Array.from(document.querySelectorAll(".message-list-item:not(.user-search-result)"))
+          .find((item) => isServerConversationId(item.dataset.conversationId))
+        : document.querySelector(".message-list-item.active") || document.querySelector(".message-list-item");
       if (!activeItem) return;
       const contact = contacts[activeItem.dataset.conversationId];
-      openConversation(contact, activeItem.dataset.conversationId);
+      if (contact) openConversation(contact, activeItem.dataset.conversationId);
     });
   }
 
@@ -1502,7 +1604,10 @@
     initMessages,
     request,
     socket: () => activeSocket,
-    showSessionDetails
+    showSessionDetails,
+    openChat: (...args) => window.openChat?.(...args),
+    sendMessage: () => window.sendMessage?.(),
+    filterMessages: (query) => window.filterMessages?.(query)
   };
 
   window.openDetails = () => {

@@ -119,7 +119,7 @@
         <div class="messages-sidebar-header">
           <div class="messages-search">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <input type="text" placeholder="Search Messages..." id="msgSearch" oninput="filterMessages(this.value)" />
+            <input type="text" placeholder="Search users or messages..." id="msgSearch" />
           </div>
         </div>
 
@@ -304,36 +304,12 @@
     if (window.innerWidth > 768) sidebar.classList.remove('open');
   });
 
-  function openChat(name, initials, color, lastMsg) {
-    // Update active state
-    document.querySelectorAll('.message-list-item').forEach(i => i.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-
-    // Update chat header
-    document.getElementById('chatName').textContent = name;
-    const avatar = document.getElementById('chatAvatar');
-    avatar.textContent = initials;
-    avatar.className = `avatar-placeholder avatar-md ${color}`;
+  function openChat(name, initials, color) {
+    window.SkillSwapApp?.openChat?.(name, initials, color);
   }
 
   function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const text = input.value.trim();
-    if (!text) return;
-
-    const messages = document.getElementById('chatMessages');
-    const msgDiv = document.createElement('div');
-    msgDiv.className = 'chat-message sent';
-    msgDiv.innerHTML = `
-      <div class="avatar-placeholder" style="width:28px; height:28px; background:#3b82f6; font-size:11px; flex-shrink:0;">DJ</div>
-      <div>
-        <div class="chat-bubble">${text}</div>
-        <div class="chat-time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>
-      </div>
-    `;
-    messages.appendChild(msgDiv);
-    messages.scrollTop = messages.scrollHeight;
-    input.value = '';
+    window.SkillSwapApp?.sendMessage?.();
   }
 
   function handleEnter(e) {
@@ -341,11 +317,7 @@
   }
 
   function filterMessages(query) {
-    document.querySelectorAll('.message-list-item').forEach(item => {
-      const name = item.querySelector('.message-list-name').textContent.toLowerCase();
-      const preview = item.querySelector('.message-list-preview').textContent.toLowerCase();
-      item.style.display = (name.includes(query.toLowerCase()) || preview.includes(query.toLowerCase())) ? 'flex' : 'none';
-    });
+    window.SkillSwapApp?.filterMessages?.(query);
   }
 </script>
 <script src="/socket.io/socket.io.js"></script>
