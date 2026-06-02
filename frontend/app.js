@@ -99,14 +99,25 @@
     }
   }
 
+  function stringValue(value, fallback = "") {
+    if (value === undefined || value === null) return fallback;
+    if (typeof value === "string") return value;
+    if (typeof value === "number" || typeof value === "boolean") return String(value);
+    if (typeof value.toString === "function" && value.toString !== Object.prototype.toString) {
+      return value.toString();
+    }
+    return fallback;
+  }
+
   function displayNameFromUser(user) {
-    if (!user?.username) return "SkillSwap User";
-    const name = user.username.split("@")[0].replace(/[._-]+/g, " ");
+    const username = stringValue(user?.username || user?.email || user?.name).trim();
+    if (!username) return "SkillSwap User";
+    const name = username.split("@")[0].replace(/[._-]+/g, " ");
     return name.replace(/\b\w/g, (char) => char.toUpperCase());
   }
 
   function initialsFromName(name) {
-    return name
+    return stringValue(name, "SkillSwap User")
       .split(/\s+/)
       .filter(Boolean)
       .slice(0, 2)
@@ -973,6 +984,17 @@
     };
   }
 
+  function entityId(value) {
+    if (value === undefined || value === null) return "";
+    if (typeof value === "string" || typeof value === "number") return String(value);
+    return stringValue(value.id || value._id || value.userId || value);
+  }
+
+  function entityUsername(value) {
+    if (!value || typeof value !== "object") return "";
+    return stringValue(value.username || value.email || value.name).trim();
+  }
+
   function conversationIdFor(contactId) {
     const user = getChatUser();
     return [user.id, contactId].sort().join("__");
@@ -1010,10 +1032,11 @@
       const initials = isMine ? currentUser.initials : (message.senderInitials || contact?.initials || initialsFromName(message.senderName || ""));
       const bubbleClass = isMine ? "sent" : "received";
       const color = isMine ? "#3b82f6" : "#22c55e";
+      const text = stringValue(message.text, "");
       return `
         <div class="chat-message ${bubbleClass}" data-message-id="${escapeHtml(message.id || message._id || "")}">
           <div class="avatar-placeholder" style="width:28px; height:28px; background:${color}; font-size:11px; flex-shrink:0;">${escapeHtml(initials)}</div>
-          <div><div class="chat-bubble">${escapeHtml(message.text)}</div><div class="chat-time">${escapeHtml(chatTime(message.createdAt))}</div></div>
+          <div><div class="chat-bubble">${escapeHtml(text)}</div><div class="chat-time">${escapeHtml(chatTime(message.createdAt))}</div></div>
         </div>
       `;
     }
@@ -1060,17 +1083,20 @@
     function normalizeConversation(raw, fallbackContact) {
       const id = String(raw?.id || raw?._id || raw?.conversationId || "");
       const participants = Array.isArray(raw?.participants) ? raw.participants : [];
-      const other = participants.find((participant) => String(participant?.id || participant?._id || participant) !== currentUser.id);
-      const username = other?.username || fallbackContact?.username || "";
-      const name = username ? displayNameFromUser({ username }) : fallbackContact?.name || "SkillSwap User";
-      const contact = fallbackContact || {
-        id: String(other?.id || other?._id || other || ""),
+      const other = participants.find((participant) => entityId(participant) !== currentUser.id);
+      const username = entityUsername(other) || stringValue(fallbackContact?.username).trim();
+      const otherId = entityId(other) || stringValue(fallbackContact?.id);
+      const name = username
+        ? displayNameFromUser({ username })
+        : stringValue(fallbackContact?.name, "SkillSwap User");
+      const contact = fallbackContact ? { ...fallbackContact } : {
+        id: otherId,
         username,
         name,
         initials: initialsFromName(name),
         color: "green"
       };
-      contact.id = contact.id || String(other?.id || other?._id || other || "");
+      contact.id = stringValue(contact.id || otherId);
       contact.username = contact.username || username;
       contact.name = contact.name || name;
       contact.initials = contact.initials || initialsFromName(contact.name);
@@ -1178,8 +1204,8 @@
     function contactFromUser(user) {
       const name = displayNameFromUser(user);
       return {
-        id: String(user.id || user._id || ""),
-        username: user.username || "",
+        id: entityId(user),
+        username: entityUsername(user),
         name,
         initials: initialsFromName(name),
         color: user.role === "tutor" ? "green" : "blue"
@@ -1218,6 +1244,7 @@
 
       users.forEach((user) => {
         const contact = contactFromUser(user);
+        if (!contact.id) return;
         list.insertAdjacentHTML("afterbegin", `
           <div class="message-list-item user-search-result" data-contact-id="${escapeHtml(contact.id)}" data-contact-username="${escapeHtml(contact.username)}">
             <div style="position:relative; flex-shrink:0;">

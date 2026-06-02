@@ -75,11 +75,25 @@ function demoConversationFor(store, userId, participantId) {
   return conversation;
 }
 
-function serializeDemoConversation(conversation) {
+function serializeDemoUser(req, id) {
+  const store = req.app.locals.demoStore || {};
+  const account = [
+    ...(store.users || []),
+    ...((req.app.locals.searchDemoAccounts?.("", null)) || [])
+  ].find((item) => normalizeId(item.id) === normalizeId(id));
+
+  return {
+    id: normalizeId(id),
+    username: account?.username || "",
+    role: account?.role || ""
+  };
+}
+
+function serializeDemoConversation(req, conversation) {
   return {
     id: conversation.id,
     _id: conversation.id,
-    participants: conversation.participants.map((id) => ({ id })),
+    participants: conversation.participants.map((id) => serializeDemoUser(req, id)),
     lastMessage: conversation.lastMessage || null,
     createdAt: conversation.createdAt,
     updatedAt: conversation.updatedAt
@@ -114,7 +128,7 @@ async function getParticipantConversation(req, res, next) {
 
       const store = getDemoStore(req);
       const conversation = demoConversationFor(store, currentUserId, participantId);
-      return res.status(200).json(serializeDemoConversation(conversation));
+      return res.status(200).json(serializeDemoConversation(req, conversation));
     }
 
     if (!mongoose.isValidObjectId(currentUserId)) {
@@ -168,7 +182,7 @@ async function getUserConversations(req, res, next) {
       return res.json(store.conversations
         .filter((conversation) => conversation.participants.includes(userId))
         .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-        .map(serializeDemoConversation));
+        .map((conversation) => serializeDemoConversation(req, conversation)));
     }
 
     const conversations = await Conversation.find({ participants: userId })
