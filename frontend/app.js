@@ -944,15 +944,6 @@
     refreshVisibleNotificationCounts();
   }
 
-  const CHAT_CONTACTS = {
-    "hyacinth bautista": { id: "demo-tutor-hyacinth", username: "hyacinth@skillswap.demo", initials: "HB", color: "green" },
-    "justine dian": { id: "demo-tutor-justine", username: "justine@skillswap.demo", initials: "JD", color: "blue" },
-    "gino cometa": { id: "demo-tutor-cometa-gino", username: "cometagino04@gmail.com", initials: "GC", color: "orange" },
-    "cometa gino": { id: "demo-tutor-cometa-gino", username: "cometagino04@gmail.com", initials: "GC", color: "orange" },
-    "maekyla roble": { id: "demo-user-maekyla-roble", username: "maekyla.roble@skillswap.demo", initials: "MR", color: "purple" },
-    "deniel javier": { id: "demo-user-deniel-javier", username: "deniel.javier@skillswap.demo", initials: "DJ", color: "green" }
-  };
-
   function getChatUser() {
     const user = getUser();
     if (user) {
@@ -974,13 +965,12 @@
 
   function contactFromName(name, initials = "", color = "green") {
     const key = cleanText(name).toLowerCase();
-    const known = CHAT_CONTACTS[key] || {};
     return {
-      id: known.id || `contact-${key.replace(/[^a-z0-9]+/g, "-") || "user"}`,
-      username: known.username || "",
+      id: `contact-${key.replace(/[^a-z0-9]+/g, "-") || "user"}`,
+      username: "",
       name: cleanText(name) || "SkillSwap User",
-      initials: known.initials || cleanText(initials) || initialsFromName(name),
-      color: known.color || color || "green"
+      initials: cleanText(initials) || initialsFromName(name),
+      color: color || "green"
     };
   }
 
@@ -1016,7 +1006,14 @@
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   }
 
+  function mountMessagingLayout() {
+    const root = document.getElementById("messagingRoot");
+    if (!root || document.getElementById("chatMessages")) return;
+    window.SkillSwapMessaging?.mount?.(root);
+  }
+
   function initMessages() {
+    mountMessagingLayout();
     if (!document.getElementById("chatMessages")) return;
     const runtimeId = ++messageRuntime;
     const conversations = {};
@@ -1029,16 +1026,13 @@
 
     function messageHtml(message, contact) {
       const isMine = String(message.senderId) === currentUser.id;
-      const initials = isMine ? currentUser.initials : (message.senderInitials || contact?.initials || initialsFromName(message.senderName || ""));
-      const bubbleClass = isMine ? "sent" : "received";
-      const color = isMine ? "#3b82f6" : "#22c55e";
       const text = stringValue(message.text, "");
-      return `
-        <div class="chat-message ${bubbleClass}" data-message-id="${escapeHtml(message.id || message._id || "")}">
-          <div class="avatar-placeholder" style="width:28px; height:28px; background:${color}; font-size:11px; flex-shrink:0;">${escapeHtml(initials)}</div>
-          <div><div class="chat-bubble">${escapeHtml(text)}</div><div class="chat-time">${escapeHtml(chatTime(message.createdAt))}</div></div>
-        </div>
-      `;
+      return window.SkillSwapMessaging?.messageBubble?.({
+        id: message.id || message._id || "",
+        mine: isMine,
+        text,
+        time: chatTime(message.createdAt)
+      }) || "";
     }
 
     function updateConversationPreview(conversationId, text, timeValue, incrementUnread = false) {
@@ -1048,7 +1042,7 @@
       if (preview) preview.textContent = text;
       if (timeNode) timeNode.textContent = chatTime(timeValue);
       if (item && incrementUnread && conversationId !== activeConversationId && !item.querySelector(".chat-unread-count")) {
-        item.querySelector(":scope > div:last-child")?.insertAdjacentHTML("beforeend", '<span class="chat-unread-count" style="background:#22c55e; color:#fff; font-size:10px; font-weight:700; padding:1px 6px; border-radius:999px;">1</span>');
+        item.querySelector(".messaging-conversation-meta")?.insertAdjacentHTML("beforeend", '<span class="chat-unread-count" aria-label="1 unread message">1</span>');
       }
     }
 
@@ -1060,21 +1054,17 @@
       const list = document.getElementById("messagesList");
       if (!list) return null;
       list.querySelector(`.user-search-result[data-contact-id="${CSS.escape(contact.id)}"]`)?.remove();
-      list.insertAdjacentHTML("afterbegin", `
-        <div class="message-list-item" data-conversation-id="${escapeHtml(conversationId)}" data-contact-id="${escapeHtml(contact.id)}" data-contact-initials="${escapeHtml(contact.initials)}" data-contact-color="${escapeHtml(contact.color)}">
-          <div style="position:relative; flex-shrink:0;">
-            <div class="avatar-placeholder avatar-md ${escapeHtml(contact.color)}" style="font-size:13px;">${escapeHtml(contact.initials)}</div>
-            <span style="position:absolute; bottom:0; right:0; width:10px; height:10px; background:#22c55e; border-radius:50%; border:2px solid #fff;"></span>
-          </div>
-          <div class="message-list-item-info">
-            <div class="message-list-name">${escapeHtml(contact.name)}</div>
-            <div class="message-list-preview">New conversation</div>
-          </div>
-          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
-            <span class="message-list-time">Just now</span>
-          </div>
-        </div>
-      `);
+      list.querySelector(".messaging-empty-state")?.remove();
+      list.insertAdjacentHTML("afterbegin", window.SkillSwapMessaging?.conversationItem?.({
+        conversationId,
+        contactId: contact.id,
+        username: contact.username,
+        initials: contact.initials,
+        color: contact.color,
+        name: contact.name,
+        preview: "New conversation",
+        time: "Just now"
+      }) || "");
       item = list.querySelector(`.message-list-item[data-conversation-id="${CSS.escape(conversationId)}"]`);
       item?.addEventListener("click", () => openConversation(contact, conversationId));
       return item;
@@ -1142,12 +1132,10 @@
       const items = conversations[conversationId] || [];
       messages.innerHTML = items.length
         ? items.map((message) => messageHtml(message, contact)).join("")
-        : `
-          <div class="chat-message received">
-            <div class="avatar-placeholder" style="width:28px; height:28px; background:#22c55e; font-size:11px; flex-shrink:0;">${escapeHtml(contact?.initials || "SS")}</div>
-            <div><div class="chat-bubble">Hi, send a message to start the conversation.</div><div class="chat-time">Just now</div></div>
-          </div>
-        `;
+        : window.SkillSwapMessaging?.emptyState?.({
+          title: "No messages yet",
+          message: "Send a message to start this conversation."
+        }) || "";
       messages.scrollTop = messages.scrollHeight;
     }
 
@@ -1167,14 +1155,17 @@
         item.classList.toggle("active", item.dataset.conversationId === conversationId);
       });
       document.querySelector(`.message-list-item[data-conversation-id="${CSS.escape(conversationId)}"] .chat-unread-count`)?.remove();
+      document.getElementById("messagingLayout")?.classList.add("thread-open");
 
       const chatName = document.getElementById("chatName");
       const avatar = document.getElementById("chatAvatar");
+      const status = document.getElementById("chatStatus");
       if (chatName) chatName.textContent = resolved.contact.name;
       if (avatar) {
         avatar.textContent = resolved.contact.initials;
         avatar.className = `avatar-placeholder avatar-md ${resolved.contact.color}`;
       }
+      if (status) status.textContent = socket?.connected ? "Online" : "Offline";
       socket?.emit("chat_join", conversationId);
       renderConversation(conversationId);
       conversations[conversationId] = await loadMessages(conversationId);
@@ -1229,14 +1220,15 @@
       clearUserSearchResults();
       const list = document.getElementById("messagesList");
       if (!list) return;
+      list.querySelector(":scope > .messaging-empty-state")?.remove();
 
       if (!users.length) {
         list.insertAdjacentHTML("afterbegin", `
-          <div class="message-list-item user-search-empty" style="cursor:default;">
-            <div class="message-list-item-info">
-              <div class="message-list-name">No users found</div>
-              <div class="message-list-preview">Try a username or email address.</div>
-            </div>
+          <div class="user-search-empty">
+            ${window.SkillSwapMessaging?.emptyState?.({
+              title: "No users found",
+              message: "Try a username or email address."
+            }) || ""}
           </div>
         `);
         return;
@@ -1245,18 +1237,16 @@
       users.forEach((user) => {
         const contact = contactFromUser(user);
         if (!contact.id) return;
-        list.insertAdjacentHTML("afterbegin", `
-          <div class="message-list-item user-search-result" data-contact-id="${escapeHtml(contact.id)}" data-contact-username="${escapeHtml(contact.username)}">
-            <div style="position:relative; flex-shrink:0;">
-              <div class="avatar-placeholder avatar-md ${escapeHtml(contact.color)}" style="font-size:13px;">${escapeHtml(contact.initials)}</div>
-            </div>
-            <div class="message-list-item-info">
-              <div class="message-list-name">${escapeHtml(contact.name)}</div>
-              <div class="message-list-preview">${escapeHtml(contact.username)}</div>
-            </div>
-            <div><span class="message-list-time">Start</span></div>
-          </div>
-        `);
+        list.insertAdjacentHTML("afterbegin", window.SkillSwapMessaging?.conversationItem?.({
+          contactId: contact.id,
+          username: contact.username,
+          initials: contact.initials,
+          color: contact.color,
+          name: contact.name,
+          preview: contact.username,
+          time: "Start",
+          searchResult: true
+        }) || "");
         const item = list.querySelector(`.user-search-result[data-contact-id="${CSS.escape(contact.id)}"]`);
         item?.addEventListener("click", async () => {
           clearUserSearchResults();
@@ -1348,6 +1338,15 @@
       if (event.key === "Enter") window.sendMessage();
     };
 
+    document.getElementById("messageComposer")?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      window.sendMessage();
+    });
+
+    document.getElementById("messageBackButton")?.addEventListener("click", () => {
+      document.getElementById("messagingLayout")?.classList.remove("thread-open");
+    });
+
     window.filterMessages = (query) => {
       const value = cleanText(query);
       clearTimeout(searchTimer);
@@ -1396,15 +1395,15 @@
     socket?.on("user_typing", (data) => {
       if (runtimeId !== messageRuntime) return;
       if (data?.conversationId !== activeConversationId || data.userId === currentUser.id) return;
-      const status = document.querySelector(".chat-header-status");
-      if (status) status.textContent = "Typing...";
+      const typing = document.getElementById("typingIndicator");
+      if (typing) typing.textContent = "Typing...";
     });
 
     socket?.on("user_stopped_typing", (data) => {
       if (runtimeId !== messageRuntime) return;
       if (data?.conversationId !== activeConversationId || data.userId === currentUser.id) return;
-      const status = document.querySelector(".chat-header-status");
-      if (status) status.textContent = "Online";
+      const typing = document.getElementById("typingIndicator");
+      if (typing) typing.textContent = "";
     });
 
     loadConversationList().then((savedCount) => {
@@ -1412,12 +1411,10 @@
       if (getToken() && !savedCount) {
         const messages = document.getElementById("chatMessages");
         if (messages) {
-          messages.innerHTML = `
-            <div class="chat-message received">
-              <div class="avatar-placeholder" style="width:28px; height:28px; background:#22c55e; font-size:11px; flex-shrink:0;">SS</div>
-              <div><div class="chat-bubble">Search for a user to start a conversation.</div><div class="chat-time">Now</div></div>
-            </div>
-          `;
+          messages.innerHTML = window.SkillSwapMessaging?.emptyState?.({
+            title: "No conversation selected",
+            message: "Search for a user to start a 1-to-1 chat."
+          }) || "";
         }
         return;
       }

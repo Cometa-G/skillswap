@@ -294,36 +294,7 @@ const SkillSwapRole = (() => {
   }
 
   function tutorMessages() {
-    return `
-      <div class="tutor-page-heading"><h1>Messages</h1><p>Chat with your tutors and manage your conversation</p></div>
-      <div class="tutor-messages-layout">
-        <aside class="tutor-message-list" id="messagesList">
-          <div class="tutor-searchbox">${icon('search')}<input placeholder="Search Messages..."></div>
-          <div class="tutor-conversation message-list-item active" onclick="openChat('Deniel Javier', 'DJ', 'green')">
-            <div class="avatar-photo avatar-lg">DJ</div>
-            <div><strong class="message-list-name">Deniel Javier</strong><span class="message-list-preview">Thanks for the help!</span></div>
-            <small class="message-list-time">10:20 am</small>
-          </div>
-        </aside>
-        <section class="tutor-chat-panel">
-          <header><div class="avatar-photo avatar-lg" id="chatAvatar">DJ</div><div><h2 id="chatName">Deniel Javier</h2><span class="chat-header-status">Online</span></div><div class="chat-tools">${icon('video')}${icon('settings')}</div></header>
-          <div class="tutor-chat-feed" id="chatMessages">
-            ${chatBubble('Hi! I saw you\'re available for a Python tutoring session.', '10:15 am', 'received')}
-            ${chatBubble('Hello Daniel! Yes, I am. What topics would you like to cover?', '10:16 am', 'sent')}
-            ${chatBubble('I\'m struggling with data structures, specifically linked lists and trees.', '10:17 am', 'received')}
-            ${chatBubble('Perfect! I can help with that. Would you like to schedule a session for tomorrow?', '10:18 am', 'sent')}
-            ${chatBubble('That would be great! How about 2 PM?', '10:19 am', 'received')}
-            ${chatBubble('2 PM works perfectly. I\'ll send you a session invite.', '10:19 am', 'sent')}
-            ${chatBubble('Thanks for the help!', '10:20 am', 'received')}
-          </div>
-          <footer><button class="icon-btn">+</button><input id="chatInput" class="chat-input" placeholder="Type a message..." onkeydown="handleEnter(event)"><button class="chat-send-btn" onclick="sendMessage()"></button></footer>
-        </section>
-      </div>
-    `;
-  }
-
-  function chatBubble(text, time, type) {
-    return `<div class="chat-message tutor-chat-message ${type}"><div><div class="chat-bubble bubble">${text}</div><span class="chat-time">${time}</span></div></div>`;
+    return window.SkillSwapMessaging?.layout?.() || '<main id="messagingRoot"></main>';
   }
 
   function tutorNotifications() {
