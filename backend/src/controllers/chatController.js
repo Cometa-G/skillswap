@@ -33,10 +33,12 @@ function serializeConversation(conversation) {
 }
 
 function serializeMessage(message) {
+  const senderId = normalizeId(message.senderId);
   return {
     id: message._id || message.id,
     conversationId: message.conversationId,
-    senderId: message.senderId,
+    sender_id: senderId,
+    senderId,
     text: message.text,
     createdAt: message.createdAt,
     updatedAt: message.updatedAt
@@ -101,11 +103,13 @@ function serializeDemoConversation(req, conversation) {
 }
 
 function serializeDemoMessage(message) {
+  const senderId = normalizeId(message.senderId);
   return {
     id: message.id,
     _id: message.id,
     conversationId: message.conversationId,
-    senderId: message.senderId,
+    sender_id: senderId,
+    senderId,
     text: message.text,
     createdAt: message.createdAt,
     updatedAt: message.updatedAt

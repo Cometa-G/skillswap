@@ -2531,7 +2531,7 @@ p {
 }
 
 .chat-message.sent {
-  align-self: flex-start;
+  align-self: flex-end;
 }
 
 .chat-bubble {
@@ -2543,15 +2543,15 @@ p {
 }
 
 .chat-message.received .chat-bubble {
-  background-color: var(--color-bg-grey);
-  color: var(--color-text);
-  border-radius: 16px 16px 4px 16px;
+  background-color: #e5e7eb;
+  color: #111827;
+  border-radius: 16px 16px 16px 4px;
 }
 
 .chat-message.sent .chat-bubble {
-  background-color: var(--color-primary);
+  background-color: #22c55e;
   color: #ffffff;
-  border-radius: 16px 16px 16px 4px;
+  border-radius: 16px 16px 4px 16px;
 }
 
 .chat-time {
@@ -2562,11 +2562,15 @@ p {
 }
 
 .chat-message.sent .chat-time {
-  text-align: left;
+  text-align: right;
 }
 
 .chat-message.received {
-  align-self: flex-end;
+  align-self: flex-start;
+}
+
+.chat-message.received .chat-time {
+  text-align: left;
 }
 
 .chat-input-area {
@@ -5372,37 +5376,37 @@ body.tutor-mode {
 }
 
 .messaging-bubble-row .messaging-bubble-wrap {
-  max-width: min(68%, 620px);
+  max-width: 70%;
   display: flex;
   flex-direction: column;
 }
 
 .messaging-scroll-area > .messaging-bubble-row.sent {
-  justify-content: flex-start;
-}
-
-.messaging-scroll-area > .messaging-bubble-row.received {
   justify-content: flex-end;
 }
 
+.messaging-scroll-area > .messaging-bubble-row.received {
+  justify-content: flex-start;
+}
+
 .messaging-bubble-row.sent .chat-bubble {
-  background: var(--color-primary);
+  background: #22c55e;
   color: #ffffff;
-  border-radius: 16px 16px 16px 4px;
+  border-radius: 16px 16px 4px 16px;
 }
 
 .messaging-bubble-row.received .chat-bubble {
   background: #e5e7eb;
-  color: var(--color-text);
-  border-radius: 16px 16px 4px 16px;
+  color: #111827;
+  border-radius: 16px 16px 16px 4px;
 }
 
 .messaging-bubble-row.sent .chat-time {
-  text-align: left;
+  text-align: right;
 }
 
 .messaging-bubble-row.received .chat-time {
-  text-align: right;
+  text-align: left;
 }
 
 .messaging-composer.chat-input-area {

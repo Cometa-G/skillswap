@@ -4,7 +4,9 @@ const router = express.Router();
 const {
   register,
   login,
-  searchUsers
+  searchUsers,
+  googleStart,
+  googleCallback
 } = require("../controllers/authController");
 
 // REGISTER
@@ -15,5 +17,9 @@ router.post("/login", login);
 
 // SEARCH ACCOUNTS
 router.get("/search", searchUsers);
+
+// GOOGLE OAUTH
+router.get("/google", googleStart);
+router.get("/google/callback", googleCallback);
 
 module.exports = router;

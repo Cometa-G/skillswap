@@ -2,6 +2,7 @@
   const REMOTE_API_BASE = "https://skillswap-9vg6.onrender.com/api";
   const API_BASE = location.protocol.startsWith("http") ? `${location.origin}/api` : REMOTE_API_BASE;
   const SOCKET_BASE = location.protocol.startsWith("http") ? location.origin : "https://skillswap-9vg6.onrender.com";
+  const AUTH_BASE = location.protocol.startsWith("http") ? location.origin : "https://skillswap-9vg6.onrender.com";
   const TOKEN_KEY = "skillswapToken";
   const USER_KEY = "skillswapUser";
   const ROLE_KEY = "skillswapRole";
@@ -271,6 +272,33 @@
         notify(err.message, "error");
       }
     }, true);
+  }
+
+  function selectedAuthRole() {
+    const activeLoginRole = document.querySelector("#loginRoleToggle [data-login-role].active")?.dataset.loginRole;
+    const signupRole = window.currentRole;
+    const storedRole = storage.getItem(ROLE_KEY);
+    if (activeLoginRole) return activeLoginRole === "tutor" ? "tutor" : "student";
+    if (signupRole) return signupRole === "tutor" ? "tutor" : "student";
+    return storedRole === "tutor" ? "tutor" : "student";
+  }
+
+  function initGoogleAuth() {
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+    if (error) {
+      notify(`Google sign-in failed: ${error}`, "error");
+      params.delete("error");
+      const nextQuery = params.toString();
+      history.replaceState({}, document.title, `${location.pathname}${nextQuery ? `?${nextQuery}` : ""}`);
+    }
+
+    document.getElementById("googleLoginBtn")?.addEventListener("click", () => {
+      const role = selectedAuthRole();
+      storage.setItem(ROLE_KEY, role);
+      localStorage.removeItem(ROLE_KEY);
+      window.location.href = `${AUTH_BASE}/auth/google?role=${encodeURIComponent(role)}`;
+    });
   }
 
   function initSignup() {
@@ -1025,7 +1053,7 @@
     const currentUser = getChatUser();
 
     function isOwnMessage(message) {
-      const senderId = entityId(message?.senderId || message?.sender?._id || message?.sender?.id || message?.sender);
+      const senderId = entityId(message?.sender_id);
       return Boolean(senderId && currentUser.id && senderId === currentUser.id);
     }
 
@@ -1033,12 +1061,9 @@
       const text = stringValue(message.text, "");
       return window.SkillSwapMessaging?.messageBubble?.({
         id: message.id || message._id || "",
-        senderId: message.senderId,
-        sender: message.sender,
         sender_id: message.sender_id,
-        user_id: message.user_id,
-        from_user: message.from_user,
-        currentUser,
+        currentUserId: currentUser.id,
+        isOwnMessage: isOwnMessage(message),
         text,
         time: chatTime(message.createdAt)
       }) || "";
@@ -1309,6 +1334,7 @@
       const optimistic = {
         id: `local-${Date.now()}`,
         conversationId: activeConversationId,
+        sender_id: currentUser.id,
         senderId: currentUser.id,
         senderName: currentUser.name,
         senderInitials: currentUser.initials,
@@ -1385,7 +1411,7 @@
     socket?.on("chat_message", (message) => {
       if (runtimeId !== messageRuntime) return;
       if (!message?.conversationId || isOwnMessage(message)) return;
-      const senderId = entityId(message.senderId || message.sender?._id || message.sender?.id || message.sender);
+      const senderId = entityId(message.sender_id);
       const contact = {
         id: senderId,
         name: message.senderName || "SkillSwap User",
@@ -1617,6 +1643,7 @@
     initTutorBookingLinks();
     applyBookingTutor();
     initLogin();
+    initGoogleAuth();
     initSignup();
     initBooking();
     initBookingInteractions();
