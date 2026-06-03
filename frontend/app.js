@@ -1030,11 +1030,14 @@
     }
 
     function messageHtml(message, contact) {
-      const isMine = isOwnMessage(message);
       const text = stringValue(message.text, "");
       return window.SkillSwapMessaging?.messageBubble?.({
         id: message.id || message._id || "",
-        senderId: message.senderId || message.sender,
+        senderId: message.senderId,
+        sender: message.sender,
+        sender_id: message.sender_id,
+        user_id: message.user_id,
+        from_user: message.from_user,
         currentUser,
         text,
         time: chatTime(message.createdAt)
