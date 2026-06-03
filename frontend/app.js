@@ -1024,8 +1024,13 @@
     const socket = getSocket();
     const currentUser = getChatUser();
 
+    function isOwnMessage(message) {
+      const senderId = entityId(message?.senderId || message?.sender?._id || message?.sender?.id || message?.sender);
+      return Boolean(senderId && currentUser.id && senderId === currentUser.id);
+    }
+
     function messageHtml(message, contact) {
-      const isMine = String(message.senderId) === currentUser.id;
+      const isMine = isOwnMessage(message);
       const text = stringValue(message.text, "");
       return window.SkillSwapMessaging?.messageBubble?.({
         id: message.id || message._id || "",
@@ -1375,9 +1380,10 @@
 
     socket?.on("chat_message", (message) => {
       if (runtimeId !== messageRuntime) return;
-      if (!message?.conversationId || String(message.senderId) === currentUser.id) return;
+      if (!message?.conversationId || isOwnMessage(message)) return;
+      const senderId = entityId(message.senderId || message.sender?._id || message.sender?.id || message.sender);
       const contact = {
-        id: String(message.senderId),
+        id: senderId,
         name: message.senderName || "SkillSwap User",
         initials: message.senderInitials || initialsFromName(message.senderName || "SkillSwap User"),
         color: "green"

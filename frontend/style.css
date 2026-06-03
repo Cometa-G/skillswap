@@ -5367,6 +5367,14 @@ body.tutor-mode {
   display: flex;
 }
 
+.messaging-bubble-row.justify-end {
+  justify-content: flex-end;
+}
+
+.messaging-bubble-row.justify-start {
+  justify-content: flex-start;
+}
+
 .messaging-bubble-row .messaging-bubble-wrap {
   max-width: min(68%, 620px);
 }
