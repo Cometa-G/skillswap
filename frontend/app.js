@@ -127,6 +127,18 @@
       .toUpperCase() || "SS";
   }
 
+  function currentRole() {
+    return storage.getItem(ROLE_KEY) || getUser()?.role || "student";
+  }
+
+  function profilePageForRole(role = currentRole()) {
+    return role === "tutor" ? "tutor-profile.html" : "profile.html";
+  }
+
+  function settingsPageForRole(role = currentRole()) {
+    return role === "tutor" ? "tutor-settings.html" : "student-settings.html";
+  }
+
   function applyUserShell() {
     const user = getUser();
     if (!user) return;
@@ -1574,6 +1586,119 @@
     }
   }
 
+  function fieldControlByLabel(labelText) {
+    return Array.from(document.querySelectorAll(".settings-field")).find((field) => {
+      const label = cleanText(field.querySelector("span")?.textContent || "");
+      return label.toLowerCase() === labelText.toLowerCase();
+    })?.querySelector("input, textarea, select") || null;
+  }
+
+  function setFieldValue(labelText, value) {
+    const control = fieldControlByLabel(labelText);
+    if (control && value) control.value = value;
+  }
+
+  function getFieldValue(labelText) {
+    return fieldControlByLabel(labelText)?.value?.trim() || "";
+  }
+
+  function initAccountPages() {
+    const page = location.pathname.split("/").pop() || "dashboard.html";
+    const role = currentRole();
+    const profilePage = profilePageForRole(role);
+    const settingsPage = settingsPageForRole(role);
+
+    document.querySelectorAll(".account-settings-link").forEach((link) => {
+      link.setAttribute("href", settingsPageForRole(currentRole()));
+    });
+
+    document.querySelectorAll(".dashboard-user, .account-profile-link").forEach((wrap) => {
+      wrap.setAttribute("href", profilePageForRole(currentRole()));
+      wrap.setAttribute("role", "link");
+      wrap.setAttribute("tabindex", "0");
+      wrap.setAttribute("title", "Open profile");
+      wrap.addEventListener("click", (event) => {
+        event.preventDefault();
+        window.location.href = profilePageForRole(currentRole());
+      });
+      wrap.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          window.location.href = profilePageForRole(currentRole());
+        }
+      });
+    });
+
+    document.querySelectorAll(".profile-page-heading .btn-primary, .profile-panel-header .btn-ghost").forEach((button) => {
+      if (/edit profile|update/i.test(button.textContent)) {
+        button.addEventListener("click", () => {
+          window.location.href = settingsPageForRole(currentRole());
+        });
+      }
+    });
+
+    document.querySelectorAll(".profile-menu-buttons button").forEach((button) => {
+      if (/settings/i.test(button.textContent)) {
+        button.addEventListener("click", () => {
+          window.location.href = settingsPageForRole(currentRole());
+        });
+      }
+    });
+
+    const user = getUser();
+    if (!user) return;
+
+    const displayName = displayNameFromUser(user);
+    const email = stringValue(user.email || user.username, "");
+    const initials = initialsFromName(displayName);
+    const roleLabel = role === "tutor" ? "Tutor" : "Student";
+
+    document.querySelectorAll(".profile-avatar, .settings-avatar-large").forEach((avatar) => {
+      avatar.textContent = initials;
+    });
+    document.querySelectorAll(".profile-name-row h2").forEach((name) => {
+      name.textContent = displayName;
+    });
+    document.querySelectorAll(".profile-name-row .badge, .settings-panel-header .badge").forEach((badge) => {
+      badge.textContent = roleLabel;
+    });
+    document.querySelectorAll(".settings-avatar-row strong").forEach((name) => {
+      name.textContent = displayName;
+    });
+
+    if (page === "student-settings.html" || page === "tutor-settings.html") {
+      setFieldValue("Full Name", displayName);
+      setFieldValue("Email Address", email);
+
+      const saveButton = document.querySelector(".settings-page-heading .btn-primary");
+      saveButton?.addEventListener("click", () => {
+        const updatedName = getFieldValue("Full Name") || displayName;
+        const updatedEmail = getFieldValue("Email Address") || email;
+        const existing = getUser() || {};
+        const updatedUser = {
+          ...existing,
+          username: updatedName,
+          name: updatedName,
+          email: updatedEmail,
+          role
+        };
+        storage.setItem(USER_KEY, JSON.stringify(updatedUser));
+        storage.setItem(ROLE_KEY, role);
+        applyUserShell();
+        notify("Account settings saved for this session.", "success");
+      });
+    }
+
+    if (page === profilePage) {
+      const emailValue = email || "No email saved";
+      const emailRow = Array.from(document.querySelectorAll(".profile-info-grid div")).find((item) => {
+        return cleanText(item.querySelector("span")?.textContent || "").toLowerCase() === "email";
+      });
+      const emailText = emailRow?.querySelector("strong");
+      if (emailText) emailText.textContent = emailValue;
+    }
+  }
+
   async function initNotifications() {
     const list = document.querySelector(".notification-list, .notifications-layout > div:first-child");
     if (!list) return;
@@ -1651,6 +1776,7 @@
     initNotificationControls();
     initLiveSessions();
     initStudentDashboard();
+    initAccountPages();
     initFindTutors();
     initSocket();
     initMessages();

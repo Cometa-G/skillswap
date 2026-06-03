@@ -35,8 +35,25 @@ function publicBaseUrl(req) {
   return `${protocol}://${req.get("host")}`;
 }
 
+function envUrl(name) {
+  return String(process.env[name] || "").trim().replace(/\/+$/, "");
+}
+
+function isLocalRequest(req) {
+  const host = String(req.get("host") || "").toLowerCase();
+  return /^localhost(?::\d+)?$/.test(host) ||
+    /^127\.0\.0\.1(?::\d+)?$/.test(host) ||
+    /^\[::1\](?::\d+)?$/.test(host);
+}
+
+function frontendBaseUrl(req) {
+  if (isLocalRequest(req)) return publicBaseUrl(req);
+  return envUrl("FRONTEND_URL") || publicBaseUrl(req);
+}
+
 function googleRedirectUri(req) {
-  return process.env.GOOGLE_REDIRECT_URI || `${publicBaseUrl(req)}/auth/google/callback`;
+  if (isLocalRequest(req)) return `${publicBaseUrl(req)}/auth/google/callback`;
+  return envUrl("GOOGLE_REDIRECT_URI") || `${frontendBaseUrl(req)}/auth/google/callback`;
 }
 
 function parseGoogleState(value) {
@@ -51,7 +68,7 @@ function parseGoogleState(value) {
 }
 
 function authSuccessHtml(req, payload) {
-  const frontendUrl = process.env.FRONTEND_URL || publicBaseUrl(req);
+  const frontendUrl = frontendBaseUrl(req);
   return `<!DOCTYPE html>
 <html lang="en">
 <head>

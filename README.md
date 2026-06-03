@@ -20,13 +20,67 @@ The system lets students find tutors, book tutoring sessions, view sessions, sen
 - Security: bcrypt password hashing, JWT authentication, AES-256-GCM encryption
 - Data format: XML booking export with XSLT stylesheet
 
+## Local Setup
+
+Install backend dependencies:
+
+```powershell
+cd C:\Users\gino2\Desktop\SkillSwap\backend
+npm install
+```
+
+Create a local environment file from the template:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Required environment variables:
+
+```text
+PORT=3000
+FRONTEND_URL=http://localhost:3000
+GOOGLE_REDIRECT_URI=http://localhost:3000/auth/google/callback
+MONGO_URI=your_mongodb_uri_here
+JWT_SECRET=your_jwt_secret_here
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+RABBITMQ_URL=your_rabbitmq_url_here
+RABBITMQ_QUEUE=notifications
+```
+
+For production on Render, use:
+
+```text
+FRONTEND_URL=https://skillswap-9vg6.onrender.com
+GOOGLE_REDIRECT_URI=https://skillswap-9vg6.onrender.com/auth/google/callback
+```
+
+The backend detects localhost requests and uses `http://localhost:3000` for local OAuth redirects, even when production URLs are configured for deployment.
+
+## Google OAuth Setup
+
+In Google Cloud Console, add these Authorized redirect URIs to the web OAuth client:
+
+```text
+http://localhost:3000/auth/google/callback
+https://skillswap-9vg6.onrender.com/auth/google/callback
+```
+
+Also add these Authorized JavaScript origins:
+
+```text
+http://localhost:3000
+https://skillswap-9vg6.onrender.com
+```
+
 ## How To Run
 
 Open PowerShell:
 
 ```powershell
 cd C:\Users\gino2\Desktop\SkillSwap\backend
-node src/server.js
+npm start
 ```
 
 Then open:
@@ -35,7 +89,11 @@ Then open:
 http://localhost:3000
 ```
 
-If `npm start` is blocked by PowerShell script policy, use `node src/server.js`.
+If `npm start` is blocked by PowerShell script policy, use:
+
+```powershell
+node src/server.js
+```
 
 ## RabbitMQ Setup
 

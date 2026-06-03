@@ -56,7 +56,7 @@ const SkillSwapRole = (() => {
         navItem('messages.html', 'Messages', 'message', currentFile),
         navItem('notifications.html', 'Notifications', 'bell', currentFile),
         '<div class="sidebar-nav-divider"></div>',
-        navItem('#', 'Favorites', 'heart', currentFile),
+        navItem('find-tutor.html', 'Students', 'users', currentFile),
         navItem('tutor-reviews.html', 'My Reviews', 'star', currentFile),
         navItem('tutor-profile.html', 'Profile', 'user', currentFile),
         navItem('tutor-settings.html', 'Setting', 'settings', currentFile),

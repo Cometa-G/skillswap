@@ -1,9 +1,9 @@
 // backend/src/socket.js
-import { Server } from "socket.io";
+const { Server } = require("socket.io");
 
 let io;
 
-export const initSocket = (httpServer) => {
+function initSocket(httpServer) {
   io = new Server(httpServer, {
     cors: {
       origin: "*", // tighten later if needed
@@ -21,6 +21,10 @@ export const initSocket = (httpServer) => {
   });
 
   return io;
-};
+}
 
-export const getIO = () => io;
+function getIO() {
+  return io;
+}
+
+module.exports = { initSocket, getIO };
