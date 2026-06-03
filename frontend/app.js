@@ -1034,7 +1034,8 @@
       const text = stringValue(message.text, "");
       return window.SkillSwapMessaging?.messageBubble?.({
         id: message.id || message._id || "",
-        mine: isMine,
+        senderId: message.senderId || message.sender,
+        currentUser,
         text,
         time: chatTime(message.createdAt)
       }) || "";
