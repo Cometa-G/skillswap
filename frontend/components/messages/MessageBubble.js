@@ -29,13 +29,6 @@ window.SkillSwapMessaging.messageBubble = function messageBubble(message = {}) {
   const mine = Boolean(senderId && currentUserId && senderId === currentUserId);
   const type = mine ? "sent" : "received";
 
-  console.debug("[MessageBubble ownership]", {
-    currentUserId,
-    senderId,
-    isOwnMessage: mine,
-    message
-  });
-
   return `
     <div class="chat-message messaging-bubble-row ${type}" data-message-id="${escape(message.id || "")}">
       <div class="messaging-bubble-wrap">
