@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutor Reviews - SkillSwap</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body class="tutor-mode">
+
+<div class="dashboard-layout">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-inner">
+        <div class="sidebar-logo-icon">SS</div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">Skill<span>Swap</span></span>
+          <span class="sidebar-logo-tagline">Learn, Teach, Grow Together.</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Dashboard
+      </a>
+
+      <a href="find-tutor.html" class="sidebar-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+        Requests
+      </a>
+
+      <a href="my-sessions.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        My Sessions
+      </a>
+
+      <a href="messages.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Messages
+      </a>
+
+      <a href="notifications.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        Notifications
+        <span class="profile-sidebar-count">5</span>
+      </a>
+
+      <div class="sidebar-nav-divider"></div>
+
+      <a href="find-tutor.html" class="sidebar-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Students
+      </a>
+
+      <a href="tutor-reviews.html" class="sidebar-nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        Reviews
+      </a>
+
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="1" x2="12" y2="23"/>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+        Earnings
+      </a>
+
+      <div class="sidebar-nav-divider"></div>
+
+      <a href="tutor-profile.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Tutor Profile
+      </a>
+
+      <a href="tutor-settings.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        Settings
+      </a>
+
+      <a href="login.html" class="sidebar-nav-item tutor-logout-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Log-out
+      </a>
+    </nav>
+
+    <div class="sidebar-help">
+      <div class="sidebar-help-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+        </svg>
+      </div>
+      <h5>Need Help?</h5>
+      <p>Visit our Help Center or contact support</p>
+    </div>
+  </aside>
+
+  <div class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="icon-btn" id="sidebarToggle" style="display:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="tutor-header-welcome">
+        <span>Welcome back,</span>
+        <strong>Hyacinth</strong>
+      </div>
+
+      <div class="dashboard-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Search reviews, students, or sessions..." />
+      </div>
+
+      <div class="dashboard-header-actions">
+        <a href="messages.html" class="icon-btn" aria-label="Messages">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </a>
+        <a href="notifications.html" class="icon-btn" aria-label="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="badge-dot"></span>
+        </a>
+        <div class="dashboard-user">
+          <div class="avatar-placeholder avatar-md green" style="font-size:14px;">HB</div>
+          <div class="dashboard-user-info">
+            <span class="dashboard-user-name">Hyacinth Bautista</span>
+            <span class="dashboard-user-role">Tutor</span>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content reviews-page tutor-reviews-page">
+      <div class="reviews-page-heading">
+        <div>
+          <h1 class="page-title">Tutor Reviews</h1>
+          <p class="page-subtitle">Track your student feedback, ratings, and review responses.</p>
+        </div>
+        <button class="btn btn-primary">Request Feedback</button>
+      </div>
+
+      <section class="reviews-summary-grid">
+        <div class="review-score-card">
+          <span>Overall Rating</span>
+          <strong>4.9</strong>
+          <div class="review-stars" aria-label="5 star rating">â˜…â˜…â˜…â˜…â˜…</div>
+          <p>Based on 128 student reviews</p>
+        </div>
+        <div class="review-stat-card">
+          <span>New Reviews</span>
+          <strong>8</strong>
+          <p>This month</p>
+        </div>
+        <div class="review-stat-card">
+          <span>Response Rate</span>
+          <strong>96%</strong>
+          <p>Replies within 24 hours</p>
+        </div>
+        <div class="review-stat-card">
+          <span>Top Skill</span>
+          <strong>UI/UX</strong>
+          <p>Most mentioned subject</p>
+        </div>
+      </section>
+
+      <div class="reviews-layout">
+        <section class="reviews-list">
+          <div class="reviews-toolbar">
+            <div>
+              <strong>Recent Reviews</strong>
+              <span>Showing verified student feedback</span>
+            </div>
+            <button class="btn btn-outline btn-sm">Sort by newest</button>
+          </div>
+
+          <article class="review-card">
+            <div class="review-card-avatar">
+              <div class="avatar-placeholder avatar-md green">DJ</div>
+            </div>
+            <div class="review-card-body">
+              <div class="review-card-header">
+                <div>
+                  <h2>Deniel Javier</h2>
+                  <span>UI/UX Design session â€¢ 2 days ago</span>
+                </div>
+                <div class="review-stars" aria-label="5 star rating">â˜…â˜…â˜…â˜…â˜…</div>
+              </div>
+              <p>Excellent tutor. Hyacinth was very patient and explained wireframes, user flows, and Figma components clearly. The session helped me improve my project right away.</p>
+              <div class="review-card-footer">
+                <span class="badge badge-green">Verified session</span>
+                <button class="btn btn-ghost btn-sm">Reply</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-card-avatar">
+              <div class="avatar-placeholder avatar-md blue">MS</div>
+            </div>
+            <div class="review-card-body">
+              <div class="review-card-header">
+                <div>
+                  <h2>Maria Santos</h2>
+                  <span>Human Computer Interaction â€¢ 1 week ago</span>
+                </div>
+                <div class="review-stars" aria-label="5 star rating">â˜…â˜…â˜…â˜…â˜…</div>
+              </div>
+              <p>I learned so much about user research and prototyping. The examples were practical, and the feedback on my interface was easy to apply.</p>
+              <div class="review-card-footer">
+                <span class="badge badge-green">Verified session</span>
+                <button class="btn btn-ghost btn-sm">Reply</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-card-avatar">
+              <div class="avatar-placeholder avatar-md purple">CR</div>
+            </div>
+            <div class="review-card-body">
+              <div class="review-card-header">
+                <div>
+                  <h2>Carlos Reyes</h2>
+                  <span>Mobile App Design â€¢ 2 weeks ago</span>
+                </div>
+                <div class="review-stars" aria-label="5 star rating">â˜…â˜…â˜…â˜…â˜…</div>
+              </div>
+              <p>Great session on mobile design. Hyacinth gave excellent feedback on spacing, navigation, and accessibility concerns in my app prototype.</p>
+              <div class="review-card-footer">
+                <span class="badge badge-yellow">Needs reply</span>
+                <button class="btn btn-primary btn-sm">Reply now</button>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <aside class="reviews-sidebar">
+          <section class="review-side-panel">
+            <h3>Rating Breakdown</h3>
+            <div class="rating-breakdown-row"><span>5 stars</span><div><i style="width:92%"></i></div><strong>92%</strong></div>
+            <div class="rating-breakdown-row"><span>4 stars</span><div><i style="width:6%"></i></div><strong>6%</strong></div>
+            <div class="rating-breakdown-row"><span>3 stars</span><div><i style="width:2%"></i></div><strong>2%</strong></div>
+            <div class="rating-breakdown-row"><span>2 stars</span><div><i style="width:0%"></i></div><strong>0%</strong></div>
+            <div class="rating-breakdown-row"><span>1 star</span><div><i style="width:0%"></i></div><strong>0%</strong></div>
+          </section>
+
+          <section class="review-side-panel">
+            <h3>Common Praise</h3>
+            <div class="review-keyword-list">
+              <span>Patient</span>
+              <span>Clear explanations</span>
+              <span>Practical examples</span>
+              <span>Great feedback</span>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<script>
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+
+  function updateSidebarToggle() {
+    if (window.innerWidth <= 768) {
+      sidebarToggle.style.display = 'flex';
+    } else {
+      sidebarToggle.style.display = 'none';
+      sidebar.classList.remove('open');
+    }
+  }
+
+  updateSidebarToggle();
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+  window.addEventListener('resize', updateSidebarToggle);
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+<script src="tutor-mode.js"></script>
+
+</body>
+</html>
+
+
+

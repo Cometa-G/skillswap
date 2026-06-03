@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Search Results - SkillSwap</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-inner">
+        <div class="sidebar-logo-icon">SS</div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">Skill<span>Swap</span></span>
+          <span class="sidebar-logo-tagline">Learn, Teach, Grow Together.</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Dashboard
+      </a>
+
+      <a href="student-search-results.html" class="sidebar-nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        Find Tutors
+      </a>
+
+      <a href="my-sessions.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        My Sessions
+      </a>
+
+      <a href="messages.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Messages
+      </a>
+
+      <a href="notifications.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        Notifications
+        <span class="profile-sidebar-count">3</span>
+      </a>
+
+      <div class="sidebar-nav-divider"></div>
+
+      <a href="student-reviews.html" class="sidebar-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        My Reviews
+      </a>
+
+      <a href="#" class="sidebar-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        Favorites
+      </a>
+
+      <div class="sidebar-nav-divider"></div>
+
+      <a href="profile.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Profile
+      </a>
+
+      <a href="student-settings.html" class="sidebar-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        Settings
+      </a>
+
+      <a href="login.html" class="sidebar-nav-item" style="color:#ef4444;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Log-out
+      </a>
+    </nav>
+
+    <div class="sidebar-help">
+      <div class="sidebar-help-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+        </svg>
+      </div>
+      <h5>Need Help?</h5>
+      <p>Visit our Help Center or contact support</p>
+    </div>
+  </aside>
+
+  <div class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="icon-btn" id="sidebarToggle" style="display:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="dashboard-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Search tutors, subjects, or skills..." value="UI/UX Design" />
+      </div>
+
+      <div class="dashboard-header-actions">
+        <a href="messages.html" class="icon-btn" aria-label="Messages">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </a>
+
+        <a href="notifications.html" class="icon-btn" aria-label="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="badge-dot"></span>
+        </a>
+
+        <div class="dashboard-user">
+          <div class="avatar-placeholder avatar-md green" style="font-size:14px;">DJ</div>
+          <div class="dashboard-user-info">
+            <span class="dashboard-user-name">Deniel Javier</span>
+            <span class="dashboard-user-role">Student</span>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content student-search-results-page">
+      <div class="search-results-heading">
+        <div>
+          <h1 class="page-title">Search Results</h1>
+          <p class="page-subtitle">Showing tutors that match UI/UX Design, online availability, and your preferred budget.</p>
+        </div>
+        <a href="dashboard.html" class="btn btn-outline">Back to Dashboard</a>
+      </div>
+
+      <section class="search-area">
+        <div class="search-area-inner">
+          <div class="search-input-wrapper">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            <input type="text" value="UI/UX Design" aria-label="Search query" />
+          </div>
+          <div class="search-select">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Philippines
+          </div>
+          <button class="btn btn-primary">Search</button>
+        </div>
+      </section>
+
+      <div class="search-results-chips">
+        <span>UI/UX Design</span>
+        <span>Available this week</span>
+        <span>PHP 300 - 500</span>
+        <span>4.8+ rating</span>
+      </div>
+
+      <div class="find-tutor-layout">
+        <aside class="filters-panel">
+          <div class="filters-header">
+            <h3>Filters</h3>
+            <button class="filters-clear">Clear all</button>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-group-title">Subject</div>
+            <div class="filter-option">
+              <input id="subject-uiux" type="checkbox" checked />
+              <label for="subject-uiux">UI/UX Design</label>
+            </div>
+            <div class="filter-option">
+              <input id="subject-hci" type="checkbox" checked />
+              <label for="subject-hci">Human Computer Interaction</label>
+            </div>
+            <div class="filter-option">
+              <input id="subject-design-systems" type="checkbox" />
+              <label for="subject-design-systems">Design Systems</label>
+            </div>
+          </div>
+
+          <div class="filter-divider"></div>
+
+          <div class="filter-group">
+            <div class="filter-group-title">Availability</div>
+            <div class="filter-option">
+              <input id="available-today" type="radio" name="availability" checked />
+              <label for="available-today">Available today</label>
+            </div>
+            <div class="filter-option">
+              <input id="available-week" type="radio" name="availability" />
+              <label for="available-week">Available this week</label>
+            </div>
+            <div class="filter-option">
+              <input id="available-online" type="radio" name="availability" />
+              <label for="available-online">Online now</label>
+            </div>
+          </div>
+
+          <div class="filter-divider"></div>
+
+          <div class="filter-group">
+            <div class="filter-group-title">Level</div>
+            <div class="filter-option">
+              <input id="level-intermediate" type="checkbox" checked />
+              <label for="level-intermediate">Intermediate</label>
+            </div>
+            <div class="filter-option">
+              <input id="level-expert" type="checkbox" checked />
+              <label for="level-expert">Expert</label>
+            </div>
+          </div>
+
+          <div class="filter-divider"></div>
+
+          <div class="filter-group">
+            <div class="filter-group-title">Session Type</div>
+            <div class="filter-option">
+              <input id="one-on-one" type="checkbox" checked />
+              <label for="one-on-one">One-on-one</label>
+            </div>
+            <div class="filter-option">
+              <input id="group" type="checkbox" />
+              <label for="group">Group</label>
+            </div>
+          </div>
+        </aside>
+
+        <section>
+          <div class="search-results-toolbar">
+            <div>
+              <strong>24 tutors found</strong>
+              <span>Sorted by best match</span>
+            </div>
+            <button class="btn btn-outline btn-sm">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 6h18M7 12h10M10 18h4"/>
+              </svg>
+              Sort
+            </button>
+          </div>
+
+          <div class="tutors-list">
+            <article class="tutor-card">
+              <div class="tutor-card-avatar">
+                <div class="avatar-placeholder avatar-xl green">HB</div>
+                <span class="tutor-online-dot"></span>
+              </div>
+              <div class="tutor-card-body">
+                <div class="tutor-card-header">
+                  <div>
+                    <h2 class="tutor-name">
+                      Hyacinth Bautista
+                      <span class="tutor-verified" aria-label="Verified tutor">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                          <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                      </span>
+                    </h2>
+                    <div class="student-result-subtitle">UI/UX Design Tutor</div>
+                  </div>
+                  <div class="tutor-price"><strong>PHP 450</strong><br />per session</div>
+                </div>
+                <p class="tutor-bio">Friendly tutor focused on user research, wireframes, Figma prototypes, and practical feedback for school projects.</p>
+                <div class="tutor-meta">
+                  <span class="tutor-rating">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    4.9 (128 reviews)
+                  </span>
+                  <span class="student-result-meta">Manila</span>
+                  <span class="student-result-available">Available today</span>
+                </div>
+                <div class="student-result-tags">
+                  <span>One-on-one</span>
+                  <span>Figma</span>
+                  <span>Portfolio Review</span>
+                </div>
+                <div class="tutor-card-actions">
+                  <a href="tutor-profile.html" class="btn btn-primary">View Profile</a>
+                  <a href="booking.html" class="btn btn-outline">Book Session</a>
+                  <a href="messages.html" class="btn btn-ghost">Message</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="tutor-card">
+              <div class="tutor-card-avatar">
+                <div class="avatar-placeholder avatar-xl blue">JD</div>
+                <span class="tutor-online-dot"></span>
+              </div>
+              <div class="tutor-card-body">
+                <div class="tutor-card-header">
+                  <div>
+                    <h2 class="tutor-name">Justine Dian</h2>
+                    <div class="student-result-subtitle">Human Computer Interaction Mentor</div>
+                  </div>
+                  <div class="tutor-price"><strong>PHP 350</strong><br />per session</div>
+                </div>
+                <p class="tutor-bio">Helps students understand usability principles, interaction flows, user testing, and HCI assignment structure.</p>
+                <div class="tutor-meta">
+                  <span class="tutor-rating">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    4.8 (96 reviews)
+                  </span>
+                  <span class="student-result-meta">Quezon City</span>
+                  <span class="student-result-available">Available this week</span>
+                </div>
+                <div class="student-result-tags">
+                  <span>Group</span>
+                  <span>User Testing</span>
+                  <span>Intermediate</span>
+                </div>
+                <div class="tutor-card-actions">
+                  <a href="tutor-profile.html" class="btn btn-primary">View Profile</a>
+                  <a href="booking.html" class="btn btn-outline">Book Session</a>
+                  <a href="messages.html" class="btn btn-ghost">Message</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="tutor-card">
+              <div class="tutor-card-avatar">
+                <div class="avatar-placeholder avatar-xl purple">MR</div>
+              </div>
+              <div class="tutor-card-body">
+                <div class="tutor-card-header">
+                  <div>
+                    <h2 class="tutor-name">Marco Reyes</h2>
+                    <div class="student-result-subtitle">Design Systems Specialist</div>
+                  </div>
+                  <div class="tutor-price"><strong>PHP 500</strong><br />per session</div>
+                </div>
+                <p class="tutor-bio">Lead designer specializing in design systems, accessibility, component libraries, and scalable interface documentation.</p>
+                <div class="tutor-meta">
+                  <span class="tutor-rating">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    4.9 (152 reviews)
+                  </span>
+                  <span class="student-result-meta">Makati</span>
+                  <span class="student-result-available">Available tomorrow</span>
+                </div>
+                <div class="student-result-tags">
+                  <span>Expert</span>
+                  <span>Accessibility</span>
+                  <span>Design Systems</span>
+                </div>
+                <div class="tutor-card-actions">
+                  <a href="tutor-profile.html" class="btn btn-primary">View Profile</a>
+                  <a href="booking.html" class="btn btn-outline">Book Session</a>
+                  <a href="messages.html" class="btn btn-ghost">Message</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <nav class="pagination" aria-label="Search result pages">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+          </nav>
+        </section>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<script>
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+
+  function updateSidebarToggle() {
+    if (window.innerWidth <= 768) {
+      sidebarToggle.style.display = 'flex';
+    } else {
+      sidebarToggle.style.display = 'none';
+      sidebar.classList.remove('open');
+    }
+  }
+
+  updateSidebarToggle();
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+  window.addEventListener('resize', updateSidebarToggle);
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+<script src="tutor-mode.js"></script>
+
+</body>
+</html>
+
+

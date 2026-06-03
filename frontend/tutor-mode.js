@@ -57,9 +57,9 @@ const SkillSwapRole = (() => {
         navItem('notifications.html', 'Notifications', 'bell', currentFile),
         '<div class="sidebar-nav-divider"></div>',
         navItem('#', 'Favorites', 'heart', currentFile),
-        navItem('#', 'My Reviews', 'star', currentFile),
-        navItem('#', 'Profile', 'user', currentFile),
-        navItem('#', 'Setting', 'settings', currentFile),
+        navItem('tutor-reviews.html', 'My Reviews', 'star', currentFile),
+        navItem('tutor-profile.html', 'Profile', 'user', currentFile),
+        navItem('tutor-settings.html', 'Setting', 'settings', currentFile),
         '<a href="login.html" class="sidebar-nav-item tutor-logout-link">' + icon('logout') + '<span>Log-out</span></a>'
       ].join('');
     }

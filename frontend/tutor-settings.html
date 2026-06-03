@@ -1,0 +1,556 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutor Settings - SkillSwap</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body class="tutor-mode">
+
+<div class="dashboard-layout">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-inner">
+        <div class="sidebar-logo-icon">SS</div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">Skill<span>Swap</span></span>
+          <span class="sidebar-logo-tagline">Learn, Teach, Grow Together.</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Dashboard
+      </a>
+
+      <a href="find-tutor.html" class="sidebar-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+        Requests
+      </a>
+
+      <a href="my-sessions.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        My Sessions
+      </a>
+
+      <a href="messages.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Messages
+      </a>
+
+      <a href="notifications.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        Notifications
+        <span class="profile-sidebar-count">5</span>
+      </a>
+
+      <div class="sidebar-nav-divider"></div>
+
+      <a href="find-tutor.html" class="sidebar-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Students
+      </a>
+
+      <a href="tutor-reviews.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        Reviews
+      </a>
+
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="1" x2="12" y2="23"/>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+        Earnings
+      </a>
+
+      <div class="sidebar-nav-divider"></div>
+
+      <a href="tutor-profile.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Tutor Profile
+      </a>
+
+      <a href="tutor-settings.html" class="sidebar-nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        Settings
+      </a>
+
+      <a href="login.html" class="sidebar-nav-item tutor-logout-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Log-out
+      </a>
+    </nav>
+
+    <div class="sidebar-help">
+      <div class="sidebar-help-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+        </svg>
+      </div>
+      <h5>Need Help?</h5>
+      <p>Visit our Help Center or contact support</p>
+    </div>
+  </aside>
+
+  <div class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="icon-btn" id="sidebarToggle" style="display:none;" aria-label="Open menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="tutor-header-welcome">
+        <span>Welcome back,</span>
+        <strong>Hyacinth</strong>
+      </div>
+
+      <div class="dashboard-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Search tutor settings, students, or sessions..." />
+      </div>
+
+      <div class="dashboard-header-actions">
+        <a href="messages.html" class="icon-btn" aria-label="Messages">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </a>
+        <a href="notifications.html" class="icon-btn" aria-label="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="badge-dot"></span>
+        </a>
+        <div class="dashboard-user">
+          <div class="avatar-placeholder avatar-md green" style="font-size:14px;">HB</div>
+          <div class="dashboard-user-info">
+            <span class="dashboard-user-name">Hyacinth Bautista</span>
+            <span class="dashboard-user-role">Tutor</span>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content settings-page tutor-settings-page">
+      <div class="settings-page-heading">
+        <div>
+          <h1 class="page-title">Tutor Settings</h1>
+          <p class="page-subtitle">Manage your tutor profile, availability, notifications, security, and payouts.</p>
+        </div>
+        <button class="btn btn-primary">Save Changes</button>
+      </div>
+
+      <div class="settings-layout">
+        <aside class="settings-nav-panel">
+          <a href="#profile" class="settings-nav-item active">Profile</a>
+          <a href="#services" class="settings-nav-item">Services</a>
+          <a href="#availability" class="settings-nav-item">Availability</a>
+          <a href="#security" class="settings-nav-item">Security</a>
+          <a href="#notifications" class="settings-nav-item">Notifications</a>
+          <a href="#payouts" class="settings-nav-item">Payouts</a>
+          <a href="#preferences" class="settings-nav-item">Preferences</a>
+        </aside>
+
+        <div class="settings-section-list">
+          <section class="settings-panel" id="profile">
+            <div class="settings-panel-header">
+              <div>
+                <h2>Tutor Profile</h2>
+                <p>Update the public details students see before booking with you.</p>
+              </div>
+              <span class="badge badge-green">Verified Tutor</span>
+            </div>
+
+            <div class="settings-avatar-row">
+              <div class="settings-avatar-large">HB</div>
+              <div>
+                <strong>Hyacinth Bautista</strong>
+                <p>Profile photo, headline, and bio used across tutor search results.</p>
+              </div>
+              <button class="btn btn-outline btn-sm">Change Photo</button>
+            </div>
+
+            <div class="settings-form-grid">
+              <label class="settings-field">
+                <span>Display Name</span>
+                <input type="text" value="Hyacinth Bautista" />
+              </label>
+              <label class="settings-field">
+                <span>Email Address</span>
+                <input type="email" value="hyacinth.bautista@example.com" />
+              </label>
+              <label class="settings-field">
+                <span>Headline</span>
+                <input type="text" value="UI/UX Design Tutor" />
+              </label>
+              <label class="settings-field">
+                <span>Location</span>
+                <input type="text" value="Manila, Philippines" />
+              </label>
+              <label class="settings-field settings-field-wide">
+                <span>Tutor Bio</span>
+                <textarea rows="4">I help students understand product design through research, wireframes, prototypes, and practical portfolio feedback.</textarea>
+              </label>
+            </div>
+          </section>
+
+          <section class="settings-panel" id="services">
+            <div class="settings-panel-header">
+              <div>
+                <h2>Teaching Services</h2>
+                <p>Set your subjects, session types, and default rate.</p>
+              </div>
+              <button class="btn btn-outline btn-sm">Add Subject</button>
+            </div>
+
+            <div class="settings-form-grid">
+              <label class="settings-field">
+                <span>Primary Subject</span>
+                <select>
+                  <option>UI/UX Design</option>
+                  <option>Web Design</option>
+                  <option>Design Systems</option>
+                </select>
+              </label>
+              <label class="settings-field">
+                <span>Hourly Rate</span>
+                <input type="text" value="PHP 650.00" />
+              </label>
+              <label class="settings-field">
+                <span>Session Format</span>
+                <select>
+                  <option>Online and in-person</option>
+                  <option>Online only</option>
+                  <option>In-person only</option>
+                </select>
+              </label>
+              <label class="settings-field">
+                <span>Minimum Booking Notice</span>
+                <select>
+                  <option>12 hours</option>
+                  <option>24 hours</option>
+                  <option>48 hours</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="settings-goals">
+              <h3>Active Skills</h3>
+              <div class="settings-tag-list">
+                <span>UI/UX Design</span>
+                <span>Wireframing</span>
+                <span>Figma</span>
+                <span>Portfolio Review</span>
+                <span>Design Systems</span>
+              </div>
+              <button class="btn btn-outline btn-sm">Edit Skills</button>
+            </div>
+          </section>
+
+          <section class="settings-panel" id="availability">
+            <div class="settings-panel-header">
+              <div>
+                <h2>Availability</h2>
+                <p>Control when students can send session requests.</p>
+              </div>
+              <button class="btn btn-primary btn-sm">Update Calendar</button>
+            </div>
+
+            <div class="settings-option-row">
+              <div>
+                <strong>Accept new booking requests</strong>
+                <p>Students can request sessions during your open time blocks.</p>
+              </div>
+              <label class="settings-switch" aria-label="Accept new booking requests">
+                <input type="checkbox" checked />
+                <span></span>
+              </label>
+            </div>
+            <div class="settings-option-row">
+              <div>
+                <strong>Auto-confirm repeat students</strong>
+                <p>Automatically approve requests from students you have taught before.</p>
+              </div>
+              <label class="settings-switch" aria-label="Auto-confirm repeat students">
+                <input type="checkbox" />
+                <span></span>
+              </label>
+            </div>
+
+            <div class="settings-device-list">
+              <div class="settings-device-item">
+                <div>
+                  <strong>Weekdays</strong>
+                  <span>Monday to Friday - 5:00 PM to 9:00 PM</span>
+                </div>
+                <button class="btn btn-ghost btn-sm">Edit</button>
+              </div>
+              <div class="settings-device-item">
+                <div>
+                  <strong>Weekends</strong>
+                  <span>Saturday - 10:00 AM to 4:00 PM</span>
+                </div>
+                <button class="btn btn-ghost btn-sm">Edit</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-panel" id="security">
+            <div class="settings-panel-header">
+              <div>
+                <h2>Security</h2>
+                <p>Protect your tutor account and payout access.</p>
+              </div>
+              <button class="btn btn-outline btn-sm">Review Activity</button>
+            </div>
+
+            <div class="settings-form-grid">
+              <label class="settings-field">
+                <span>Current Password</span>
+                <input type="password" placeholder="Enter current password" />
+              </label>
+              <label class="settings-field">
+                <span>New Password</span>
+                <input type="password" placeholder="Enter new password" />
+              </label>
+            </div>
+
+            <div class="settings-option-row">
+              <div>
+                <strong>Two-factor authentication</strong>
+                <p>Require a second verification step when signing in.</p>
+              </div>
+              <label class="settings-switch" aria-label="Enable two-factor authentication">
+                <input type="checkbox" checked />
+                <span></span>
+              </label>
+            </div>
+          </section>
+
+          <section class="settings-panel" id="notifications">
+            <div class="settings-panel-header">
+              <div>
+                <h2>Notifications</h2>
+                <p>Choose which tutor updates SkillSwap sends you.</p>
+              </div>
+            </div>
+
+            <div class="settings-option-row">
+              <div>
+                <strong>New requests</strong>
+                <p>Alerts when students send booking requests.</p>
+              </div>
+              <label class="settings-switch" aria-label="Enable new request notifications">
+                <input type="checkbox" checked />
+                <span></span>
+              </label>
+            </div>
+            <div class="settings-option-row">
+              <div>
+                <strong>Student messages</strong>
+                <p>Messages, questions, and file-sharing updates.</p>
+              </div>
+              <label class="settings-switch" aria-label="Enable student message notifications">
+                <input type="checkbox" checked />
+                <span></span>
+              </label>
+            </div>
+            <div class="settings-option-row">
+              <div>
+                <strong>Review reminders</strong>
+                <p>Prompts to respond to fresh student reviews.</p>
+              </div>
+              <label class="settings-switch" aria-label="Enable review reminders">
+                <input type="checkbox" checked />
+                <span></span>
+              </label>
+            </div>
+            <div class="settings-option-row">
+              <div>
+                <strong>Platform announcements</strong>
+                <p>Product updates, teaching tips, and tutor promotions.</p>
+              </div>
+              <label class="settings-switch" aria-label="Enable platform announcements">
+                <input type="checkbox" />
+                <span></span>
+              </label>
+            </div>
+          </section>
+
+          <section class="settings-panel" id="payouts">
+            <div class="settings-panel-header">
+              <div>
+                <h2>Payouts</h2>
+                <p>Manage where SkillSwap sends your tutor earnings.</p>
+              </div>
+              <button class="btn btn-primary btn-sm">Add Payout Method</button>
+            </div>
+
+            <div class="settings-payment-card">
+              <div class="settings-card-brand">BANK</div>
+              <div>
+                <strong>BPI Savings ending 9042</strong>
+                <p>Default payout method - Weekly transfers</p>
+              </div>
+              <span class="badge badge-green">Default</span>
+            </div>
+            <div class="settings-payment-card">
+              <div class="settings-card-brand">GC</div>
+              <div>
+                <strong>GCash ending 1188</strong>
+                <p>Backup payout method - Manual transfers</p>
+              </div>
+              <button class="btn btn-ghost btn-sm">Edit</button>
+            </div>
+
+            <div class="settings-history">
+              <h3>Payout History</h3>
+              <div class="settings-history-row">
+                <div>
+                  <strong>May Tutor Earnings</strong>
+                  <span>May 15, 2026 - Completed</span>
+                </div>
+                <span>PHP 18,200.00</span>
+              </div>
+              <div class="settings-history-row">
+                <div>
+                  <strong>April Tutor Earnings</strong>
+                  <span>April 15, 2026 - Completed</span>
+                </div>
+                <span>PHP 21,300.00</span>
+              </div>
+              <div class="settings-history-row">
+                <div>
+                  <strong>March Tutor Earnings</strong>
+                  <span>March 15, 2026 - Completed</span>
+                </div>
+                <span>PHP 19,800.00</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-panel" id="preferences">
+            <div class="settings-panel-header">
+              <div>
+                <h2>Preferences</h2>
+                <p>Set tutor defaults for language, timezone, and interface behavior.</p>
+              </div>
+            </div>
+
+            <div class="settings-form-grid">
+              <label class="settings-field">
+                <span>Language</span>
+                <select>
+                  <option>English</option>
+                  <option>Filipino</option>
+                </select>
+              </label>
+              <label class="settings-field">
+                <span>Timezone</span>
+                <select>
+                  <option>Asia/Manila (GMT+8)</option>
+                  <option>UTC</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="settings-option-row">
+              <div>
+                <strong>Dark mode</strong>
+                <p>Use a darker dashboard while teaching at night.</p>
+              </div>
+              <label class="settings-switch" aria-label="Enable dark mode">
+                <input type="checkbox" />
+                <span></span>
+              </label>
+            </div>
+            <div class="settings-option-row">
+              <div>
+                <strong>Show profile in tutor search</strong>
+                <p>Allow students to find and book you from search results.</p>
+              </div>
+              <label class="settings-switch" aria-label="Show profile in tutor search">
+                <input type="checkbox" checked />
+                <span></span>
+              </label>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<script>
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+
+  function updateSidebarToggle() {
+    if (window.innerWidth <= 768) {
+      sidebarToggle.style.display = 'flex';
+    } else {
+      sidebarToggle.style.display = 'none';
+      sidebar.classList.remove('open');
+    }
+  }
+
+  updateSidebarToggle();
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+  window.addEventListener('resize', updateSidebarToggle);
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+<script src="tutor-mode.js"></script>
+
+</body>
+</html>
+
+
+

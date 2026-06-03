@@ -1,0 +1,18 @@
+[33mcommit 907dcacacdd6b94e8bf9dff2607e7e8da705a86c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Cometa G <cometagino@g.cjc.edu.ph>
+Date:   Wed Jun 3 13:03:15 2026 +0800
+
+    Add Google authentication integration
+
+.gitignore
+backend/.env
+backend/src/controllers/authController.js
+backend/src/controllers/chatController.js
+backend/src/models/user.js
+backend/src/routes/authRoutes.js
+backend/src/server.js
+frontend/app.js
+frontend/components/messages/MessageBubble.js
+frontend/login.html
+frontend/signup.html
+frontend/style.css

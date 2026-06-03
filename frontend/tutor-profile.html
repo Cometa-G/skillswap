@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutor Profile - SkillSwap</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body class="tutor-mode">
+
+<div class="dashboard-layout">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-inner">
+        <div class="sidebar-logo-icon">SS</div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">Skill<span>Swap</span></span>
+          <span class="sidebar-logo-tagline">Learn, Teach, Grow Together.</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Dashboard
+      </a>
+
+      <a href="find-tutor.html" class="sidebar-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+        Requests
+      </a>
+
+      <a href="my-sessions.html" class="sidebar-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        My Sessions
+      </a>
+
+      <a href="messages.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Messages
+      </a>
+
+      <a href="notifications.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        Notifications
+        <span class="profile-sidebar-count">5</span>
+      </a>
+
+      <div class="sidebar-nav-divider"></div>
+
+      <a href="find-tutor.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Students
+      </a>
+
+      <a href="tutor-reviews.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        Reviews
+      </a>
+
+      <a href="tutor-settings.html" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="1" x2="12" y2="23"/>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+        Earnings
+      </a>
+
+      <div class="sidebar-nav-divider"></div>
+
+      <a href="tutor-profile.html" class="sidebar-nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Tutor Profile
+      </a>
+
+      <a href="#" class="sidebar-nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        Settings
+      </a>
+
+      <a href="login.html" class="sidebar-nav-item tutor-logout-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Log-out
+      </a>
+    </nav>
+
+    <div class="sidebar-help">
+      <div class="sidebar-help-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+        </svg>
+      </div>
+      <h5>Need Help?</h5>
+      <p>Visit our Help Center or contact support</p>
+    </div>
+  </aside>
+
+  <div class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="icon-btn" id="sidebarToggle" style="display:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="tutor-header-welcome">
+        <span>Welcome back,</span>
+        <strong>Hyacinth</strong>
+      </div>
+
+      <div class="dashboard-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Search students, bookings, or skills..." />
+      </div>
+
+      <div class="dashboard-header-actions">
+        <a href="#" class="icon-btn" aria-label="Messages">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </a>
+
+        <a href="#" class="icon-btn" aria-label="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="badge-dot"></span>
+        </a>
+
+        <div class="dashboard-user">
+          <div class="avatar-placeholder avatar-md green" style="font-size:14px;">HB</div>
+          <div class="dashboard-user-info">
+            <span class="dashboard-user-name">Hyacinth Bautista</span>
+            <span class="dashboard-user-role">Tutor</span>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content profile-page tutor-profile-page">
+      <div class="profile-page-heading">
+        <div>
+          <h1 class="page-title">Tutor Profile</h1>
+          <p class="page-subtitle">Manage your public tutor details, services, availability, and reviews.</p>
+        </div>
+        <button class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+          </svg>
+          Edit Tutor Profile
+        </button>
+      </div>
+
+      <section class="profile-hero-card tutor-profile-hero">
+        <div class="profile-cover"></div>
+        <div class="profile-hero-content">
+          <div class="profile-avatar-wrap">
+            <div class="avatar-placeholder green profile-avatar">HB</div>
+            <button class="profile-avatar-button" aria-label="Change tutor profile picture">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="profile-identity">
+            <div class="profile-name-row">
+              <h2>Hyacinth Bautista</h2>
+              <span class="badge badge-green">Verified Tutor</span>
+              <span class="badge badge-yellow">Top Rated</span>
+            </div>
+            <p>UI/UX Design tutor helping students turn research, wireframes, and prototypes into clear, usable product experiences.</p>
+            <div class="profile-meta-row">
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+                4.9 rating
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                  <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                </svg>
+                128 completed sessions
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                Manila, Philippines
+              </span>
+            </div>
+          </div>
+
+          <div class="profile-quick-actions">
+            <a href="#" class="btn btn-outline btn-sm">Preview Public Page</a>
+            <a href="#" class="btn btn-primary btn-sm">Set Availability</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="profile-menu-buttons">
+        <button class="active">Overview</button>
+        <button>Services</button>
+        <button>Schedule</button>
+        <button>Reviews</button>
+        <button>Earnings</button>
+      </div>
+
+      <div class="profile-page-grid">
+        <section class="profile-panel profile-main-panel">
+          <div class="profile-panel-header">
+            <h3>About This Tutor</h3>
+            <button class="btn btn-ghost btn-sm">Update</button>
+          </div>
+          <p class="profile-about-text">I teach practical design workflows for students who want to understand users, structure interfaces, and present polished prototypes. Sessions are hands-on, friendly, and tailored around the learner's current project or assignment.</p>
+
+          <div class="profile-info-grid">
+            <div>
+              <span>Specialty</span>
+              <strong>UI/UX Design</strong>
+            </div>
+            <div>
+              <span>Experience</span>
+              <strong>4 years</strong>
+            </div>
+            <div>
+              <span>Response time</span>
+              <strong>Usually within 1 hour</strong>
+            </div>
+            <div>
+              <span>Teaching format</span>
+              <strong>Online and project-based</strong>
+            </div>
+          </div>
+        </section>
+
+        <aside class="profile-panel tutor-profile-rate-card">
+          <div class="profile-panel-header">
+            <h3>Profile Snapshot</h3>
+          </div>
+          <div class="profile-stat-list">
+            <div>
+              <span>4.9</span>
+              <p>Average Rating</p>
+            </div>
+            <div>
+              <span>128</span>
+              <p>Completed Sessions</p>
+            </div>
+            <div>
+              <span>PHP 450</span>
+              <p>Hourly Rate</p>
+            </div>
+          </div>
+        </aside>
+
+        <section class="profile-panel profile-main-panel">
+          <div class="profile-panel-header">
+            <h3>Services Offered</h3>
+            <a href="#">Add service</a>
+          </div>
+          <div class="tutor-profile-service-grid">
+            <div>
+              <strong>UI/UX Design</strong>
+              <p>Wireframes, layout critique, user flows, and interaction basics.</p>
+            </div>
+            <div>
+              <strong>Human Computer Interaction</strong>
+              <p>Usability principles, task analysis, and evaluation planning.</p>
+            </div>
+            <div>
+              <strong>Design Systems</strong>
+              <p>Components, tokens, variants, and documentation workflows.</p>
+            </div>
+          </div>
+        </section>
+
+        <aside class="profile-panel">
+          <div class="profile-panel-header">
+            <h3>Availability</h3>
+            <a href="#">Edit</a>
+          </div>
+          <div class="tutor-profile-availability">
+            <div>
+              <span>Mon, Wed, Fri</span>
+              <strong>5:00 PM - 8:00 PM</strong>
+            </div>
+            <div>
+              <span>Saturday</span>
+              <strong>10:00 AM - 2:00 PM</strong>
+            </div>
+            <div>
+              <span>Next open slot</span>
+              <strong>Tomorrow, 6:00 PM</strong>
+            </div>
+          </div>
+        </aside>
+
+        <section class="profile-panel profile-main-panel">
+          <div class="profile-panel-header">
+            <h3>Recent Reviews</h3>
+            <a href="#">View all</a>
+          </div>
+          <div class="tutor-profile-review-list">
+            <article class="tutor-profile-review">
+              <div class="avatar-placeholder avatar-sm green">DJ</div>
+              <div>
+                <div class="tutor-profile-review-title">
+                  <strong>Deniel Javier</strong>
+                  <span>5.0</span>
+                </div>
+                <p>Excellent tutor. Very patient and explains concepts clearly. The UI/UX design session was incredibly helpful.</p>
+              </div>
+            </article>
+
+            <article class="tutor-profile-review">
+              <div class="avatar-placeholder avatar-sm blue">MS</div>
+              <div>
+                <div class="tutor-profile-review-title">
+                  <strong>Maria Santos</strong>
+                  <span>5.0</span>
+                </div>
+                <p>I learned so much about user research and prototyping. The examples were practical and easy to follow.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <aside class="profile-panel">
+          <div class="profile-panel-header">
+            <h3>Next Session</h3>
+            <a href="#">Details</a>
+          </div>
+          <div class="profile-session-card">
+            <div class="notification-icon green">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div>
+              <strong>Mobile App Design</strong>
+              <p>With Carlos Reyes</p>
+              <span>Today, 3:30 PM</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<script>
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+
+  function updateSidebarToggle() {
+    if (window.innerWidth <= 768) {
+      sidebarToggle.style.display = 'flex';
+    } else {
+      sidebarToggle.style.display = 'none';
+      sidebar.classList.remove('open');
+    }
+  }
+
+  updateSidebarToggle();
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+  window.addEventListener('resize', updateSidebarToggle);
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+<script src="tutor-mode.js"></script>
+
+</body>
+</html>
+
+
+
